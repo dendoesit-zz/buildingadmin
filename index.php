@@ -1,58 +1,47 @@
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
-    <head>
+<?php
+session_start();
+echo $_SESSION['role'];
+
+if(isset($_POST['logout']))
+{
+ unset($_SESSION['email']);
+}
+?>
+
+<html>
+      <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/bootstrap.css">
-        <link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="js/vendor/jquery-1.11.2.min.js"></script>
-        <script src="js/vendor/bootstrap.min.js"></script>
-        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
         <script src="js/main.js"></script>
-
+          <script>
+            $(document).ready(function(){
+            var player = "<?php echo $_SESSION['role']; ?>";
+            if (player == "admin"){
+                $(".admin-view").show()
+            }});
+          </script>
     </head>
-    <body>
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        <div class="header-container">
+<body>
+    
+    <div class="header">
             <header class="wrapper clearfix">
                 <h1 class="title">Administrarea blocului</h1>
             </header>
         </div>
         <!-- Login form  -->
-        <article>
-        <form action="/action_page.php">
-              <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email">
-              </div>
-              <div class="form-group">
-                <label for="pwd">Parola:</label>
-                <input type="password" class="form-control" id="pwd">
-              </div>
-              <div class="checkbox">
-                <label><input type="checkbox"> Tine-ma minte.</label>
-              </div>
-              <button type="submit" class="btn btn-default">Logare</button>
-              <button type="submit" class="btn btn-default">Resetare parola</button>
-        </form>
-        </article>
-        <div hidden id ="logged-in">
+        
+        <div id ="logged-in">
         <div class="header-container">
             <header class="wrapper clearfix">
                 <h1 class="title">Administrarea blocului nr. 15</h1>
                 <nav>
                     <ul>
-                        
-                        <li><a href="#">Delogare</a></li>
+                        <li><a href="login.php"> Logout</a></li>
                     </ul>
                 </nav>
             </header>
@@ -62,7 +51,7 @@
             <div class="main wrapper clearfix">
 
                 <article>
-                    <div hidden id="user-view">
+                    <div class="user-view">
                         <p> Facturi </p>
                         <ol>
                             <li>Apa 5.03.2018</li>
@@ -70,7 +59,7 @@
                             <li>Intretinerea 5.06.2018</li>
                         </ol>
                     </div>
-                    <div hidden id="admin-view">
+                    <div class="admin-view">
                         <h2>Restantieri</h2>
                         <div class="dropdown">
   <button class="btn btn-primary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -102,5 +91,5 @@
 
 
         
-    </body>
+</body>
 </html>

@@ -1,4 +1,9 @@
-
+.user-view{
+    display:none;
+}
+body{
+    background-color:red;
+}
 html {
     color: #222;
     font-size: 1em;
@@ -145,7 +150,6 @@ nav a:hover {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-
 
 
 
@@ -375,3 +379,5 @@ form {
     margin:0 auto;
     margin-top:5%;
 }
+
+
