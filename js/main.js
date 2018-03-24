@@ -3,6 +3,7 @@
 //If user submits the form
  $(document).ready(function(){
      
+     
      // ---------------------------------------------> GET ALL USERS
      request = $.ajax({
                     url: "locatari.php",
