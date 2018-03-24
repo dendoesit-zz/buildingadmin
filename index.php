@@ -17,8 +17,8 @@ if (isset($_POST['logout'])) {
     <script src="js/vendor/jquery-1.11.2.min.js"></script>
     <script src="js/main.js"></script>
     <script>
-        
-        
+
+
         function do_login() {
             var email = $("#emailid").val();
             var pass = $("#password").val();
@@ -122,27 +122,18 @@ if (isset($_POST['logout'])) {
                 <h2> Administrate urilizatori </h2>
                 <table>
                     <thead>
-                    <th>Ap.</th>
-                    <th>Nume</th>
-                    <th>Locatari</th>
-                    <th>
-                        
-                        <button type="button" data-toggle="modal" data-target="addUser" id="addbutton">Adaugare</button>
-                    </th>
+                    <tr>
+                        <th>Ap.</th>
+                        <th>Nume</th>
+                        <th>Locatari</th>
+                        <th>
+
+                            <button type="button" data-toggle="modal" data-target="addUser" id="addbutton">Adaugare
+                            </button>
+                        </th>
+                    </tr>
                     </thead>
                     <tbody id="locatari">
-<!--
-                    <tr>
-                        <td>1</td>
-                        <td>Mihai</td>
-                        <td>5</td>
-                        <td id="buttonstd">
-                            <button type="button" data-toggle="modal" data-target="editUser" id="editbutton">Editare
-                            </button>
-                            <button type="button" id="deletebutton">Stergere</button>
-                        </td>
-                    </tr>
--->
                     </tbody>
                 </table>
                 <!-- The Add Modal -->
@@ -155,9 +146,14 @@ if (isset($_POST['logout'])) {
                         </div>
                         <div class="modal-body">
                             <form id="addUserForm" action="" method="post">
-                                <label class="control-label" for="apartment">Apartament:</label><input type="number" id="addapnr" name="addapnr" required/>
-                                <label class="control-label" for="name">Nume:</label><input type="text" id="addname" name="addname" required/>
-                                <label class="control-label" for="persons">Numar de persoane:</label><input type="number" id="addnrpers" name="addnrpers" required/>
+                                <label class="control-label" for="apartment">Apartament:</label><input type="number"
+                                                                                                       id="addapnr"
+                                                                                                       name="addapnr"
+                                                                                                       required/>
+                                <label class="control-label" for="name">Nume:</label><input type="text" id="addname"
+                                                                                            name="addname" required/>
+                                <label class="control-label" for="persons">Numar de persoane:</label><input
+                                        type="number" id="addnrpers" name="addnrpers" required/>
                                 <input type="submit" name="adduser" value="Add" id="adduser">
                             </form>
                         </div>
@@ -165,7 +161,7 @@ if (isset($_POST['logout'])) {
 
                 </div>
                 <!-- The Edit Modal -->
-                <div id="editUser" class="modal" >
+                <div id="editUser" class="modal">
                     <!-- Modal content -->
                     <div class="modal-content">
                         <div class="modal-header">
@@ -173,11 +169,15 @@ if (isset($_POST['logout'])) {
                             <h2>Editare utilizator</h2>
                         </div>
                         <div class="modal-body">
-                            <form id="editUserForm" method="post" >
-                                <label class="control-label" for="apartment">Apartament:</label><input type="number" id="editapnr" name="editapnr" required/>
+                            <form id="editUserForm" method="post">
+                                <label class="control-label" for="apartment">Apartament:</label><input type="number"
+                                                                                                       id="editapnr"
+                                                                                                       name="editapnr"
+                                                                                                       required/>
                                 <label class="control-label" for="name">Nume:</label>
-                                <input type="text"id="editname" name="editname"  required/>
-                                <label class="control-label" for="persons">Numar de persoane:</label><input type="number" id="editnrpers" name="editnrpers" required/>
+                                <input type="text" id="editname" name="editname" required/>
+                                <label class="control-label" for="persons">Numar de persoane:</label><input
+                                        type="number" id="editnrpers" name="editnrpers" required/>
                                 <input type="submit" name="saveuser" value="Salvare" id="saveuser">
                             </form>
                         </div>
