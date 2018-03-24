@@ -167,7 +167,7 @@ if (isset($_POST['logout'])) {
                     </tbody>
                 </table>
                 <!-- The Add Modal -->
-                <div id="addUser" class="modal">
+                <div id="addUserModal" class="modal">
                     <!-- Modal content -->
                     <div class="modal-content">
                         <div class="modal-header">
@@ -175,7 +175,7 @@ if (isset($_POST['logout'])) {
                             <h2>Adaugare utilizator</h2>
                         </div>
                         <div class="modal-body">
-                            <form id="addUserForm" action="addUser" method="post">
+                            <form id="addUserForm" action="" method="post">
                                 <label class="control-label" for="apartment">Apartament:</label><input type="number" id="addapnr" name="addapnr" required/>
                                 <label class="control-label" for="name">Nume:</label><input type="text" id="addname" name="addname" required/>
                                 <label class="control-label" for="persons">Numar de persoane:</label><input type="number" id="addnrpers" name="addnrpers" required/>
@@ -194,7 +194,7 @@ if (isset($_POST['logout'])) {
                             <h2>Editare utilizator</h2>
                         </div>
                         <div class="modal-body">
-                            <form id="editUser" method="post" action="locatari.php">
+                            <form id="editUserForm" method="post" >
                                 <label class="control-label" for="apartment">Apartament:</label><input type="number" id="editapnr" name="editapnr" required/>
                                 <label class="control-label" for="name">Nume:</label>
                                 <input type="text"id="editname" name="editname"  required/>

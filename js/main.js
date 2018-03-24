@@ -41,7 +41,7 @@
         $("tbody").append(rows);
         rows = "";
         $("#addbutton").click(function(){
-            $("#addUser").show();
+            $("#addUserModal").show();
         });
         $(".close").click(function(){
             $(".modal").hide();
@@ -71,7 +71,7 @@
                 console.log('you pressed');
             })
         });
-        $("#addUser").click(function(){
+        $("#adduser").click(function(){
             var ap = $("#addapnr").val();
             var nume = $("#addname").val();
             var nr_pers = $("#addnrpers").val();
@@ -94,13 +94,18 @@ function addUser(ap,nume,nr_pers){
                 });
                 // Callback handler that will be called on success
     request.done(function (response) {
+        console.log('it worked')
         // Log a message to the console
-        console.log( response + " was the resp");
+        //console.log( response + " was the resp");
         // refresh table
-        alert('IT WORKED');
+        //alert('IT WORKED');
         //manageRow(data);
     });
     request.fail(function (jqXHR, textStatus, errorThrown) {
+        if(jqXHR.status&&jqXHR.status==400){
+            alert(jqXHR.responseText); 
+        }
+        $("editUser").hide();
         // Log the error to the console
         console.error(
             "The following error occurred: " +
