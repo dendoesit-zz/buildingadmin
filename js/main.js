@@ -32,7 +32,7 @@
             rows = rows + '<td>'+value.nume+'</td>';
             rows = rows + '<td>'+value.nr_pers+'</td>';
             rows = rows + '<td data-id="'+value.user_id+'">';
-            rows = rows + '<button type="button" data-toggle="modal" data-target="editUser" class="editbutton">Editare </button>';
+            rows = rows + '<button type="button" data-toggle="modal" data-target="editUser" class="editUser">Editare </button>';
             rows = rows + '<button type="button" class="deleteUser">Stergere</button>';
             rows = rows + '</td>';
             rows = rows + '</tr>';
@@ -43,9 +43,6 @@
         $("#addbutton").click(function(){
             $("#addUser").show();
         });
-        $(".editbutton").click(function(){
-            $("#editUser").show();
-        });
         $(".close").click(function(){
             $(".modal").hide();
         })
@@ -53,6 +50,26 @@
             var id = $(this).parent("td").data('id');
             deleteUser(id);
             console.log(id);
+        });
+        $(".editUser").click(function(){
+            $("#editUser").show();
+            var id = $(this).parent("td").data('id');
+            var ap = $(this).parent("td").prev("td").prev("td").prev("td").text();
+            var nume = $(this).parent("td").prev("td").prev("td").text();
+            var loc = $(this).parent("td").prev("td").text();
+            console.log(id,ap,nume,loc);
+            $("#editUser").find("input[name='editapnr']").val(ap);
+            $("#editUser").find("input[name='editname']").val(nume);
+            $("#editUser").find("input[name='editnrpers']").val(loc);
+
+            $("#saveuser").click(function(){
+                var newap = $("#addapnr").val();
+                var newnume = $("#editname").val();
+                var newloc = $("#editnrpers").val();
+                editUser(id,newap,newnume,newloc);
+                console.log(id,newap,newnume,newloc);
+                console.log('you pressed');
+            })
         });
         $("#addUser").click(function(){
             var ap = $("#addapnr").val();
@@ -65,7 +82,7 @@
      // ---------------------------------------------> ADD USER
 function addUser(ap,nume,nr_pers){
     console.log(ap,nume,nr_pers);
-     request = $.ajax({
+    request = $.ajax({
                     url: "locatari.php",
                     type: "post",
                     data: {
@@ -90,11 +107,36 @@ function addUser(ap,nume,nr_pers){
             textStatus, errorThrown
         );
     });
-     };
-     
-     
+};
+function editUser(id,newap,newnume,newloc){
+    console.log(id,newap,newnume,newloc);
+    request = $.ajax({
+            url: "locatari.php",
+            type: "post",
+            data: {
+                action: 'editUser',
+                ap:newap,
+                nume:newnume,
+                nr_pers:newloc,
+                id:id
+            }
+        });
+        // Callback handler that will be called on success
+    request.done(function (response) {
+        // Log a message to the console
+        console.log( response + " was the resp");
+        // refresh table
+        manageRow(data);
+    });
+    request.fail(function (jqXHR, textStatus, errorThrown) {
+        // Log the error to the console
+        console.error(
+            "The following error occurred: " +
+            textStatus, errorThrown
+        );
+    });
+};    
 
-     
 function deleteUser(id){
     console.log(id);
      request = $.ajax({
@@ -113,6 +155,8 @@ function deleteUser(id){
                     manageRow(data);
                 });
      };
+     
+
      
      // ---------------------------------------------> MODAL
 

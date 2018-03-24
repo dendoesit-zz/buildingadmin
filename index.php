@@ -186,7 +186,7 @@ if (isset($_POST['logout'])) {
 
                 </div>
                 <!-- The Edit Modal -->
-                <div id="editUser" class="modal">
+                <div id="editUser" class="modal" >
                     <!-- Modal content -->
                     <div class="modal-content">
                         <div class="modal-header">
@@ -194,13 +194,12 @@ if (isset($_POST['logout'])) {
                             <h2>Editare utilizator</h2>
                         </div>
                         <div class="modal-body">
-                                <form id="editUser" method="post" action="locatari.php" onsubmit="return edit_user();">
-
-                                <label class="control-label" for="apartment">Apartament:</label><input type="text" required/>
-                                <label class="control-label" for="name">Nume:</label><input type="number" name="title" required/>
-                                <label class="control-label" for="persons">Numar de persoane:</label><input
-                                        type="number" name="title" required/>
-                                <input type="submit" name="edituser" value="Salvare" id="edituser">
+                            <form id="editUser" method="post" action="locatari.php">
+                                <label class="control-label" for="apartment">Apartament:</label><input type="number" id="editapnr" name="editapnr" required/>
+                                <label class="control-label" for="name">Nume:</label>
+                                <input type="text"id="editname" name="editname"  required/>
+                                <label class="control-label" for="persons">Numar de persoane:</label><input type="number" id="editnrpers" name="editnrpers" required/>
+                                <input type="submit" name="saveuser" value="Salvare" id="saveuser">
                             </form>
                         </div>
                     </div>
