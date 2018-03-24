@@ -1,3 +1,5 @@
+// ---------------------------------------------> Chat
+
 //If user submits the form
  $(document).ready(function(){
 	$("#submitmsg").click(function(){
@@ -29,4 +31,27 @@
 		});
 	}
      
+
+
+
+// ---------------------------------------------> Modal
+
+// Get the modal
+$("#addbutton").click(function(){
+    $("#addUser").show();
+});
+$("#editbutton").click(function(){
+    $("#editUser").show();
+});
+$(".close").click(function(){
+    $(".modal").hide();
+})
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
  });

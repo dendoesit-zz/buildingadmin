@@ -67,6 +67,10 @@ if(isset($_POST['logout']))
                     $("#chat").show();
                     $("#chat-start").hide();
                 });
+                $("#close-chat").click(function(){
+                    $("#chat").hide();
+                    $("#chat-start").show();
+                });
                 $("#logout").click(function(){
                     $("#login_form").show();
                     $("#logged-in").hide();
@@ -75,6 +79,15 @@ if(isset($_POST['logout']))
                 if (player == "admin"){
                     $(".admin-view").show()
                 }
+                $("#crudpage").click(function(){
+                    $("#crud").show();
+                    $("#home").hide();
+                });
+                $("#homepage").click(function(){
+                    $("#home").show();
+                    $("#crud").hide();
+                });
+                
             });
           </script>
           
@@ -96,6 +109,8 @@ if(isset($_POST['logout']))
                 <h1 class="title">Administrarea blocului nr. 15</h1>
                 <nav>
                     <ul>
+                        <li><a href="#" id="homepage">Acasa</a></li>
+                        <li><a href="#" id="crudpage" class="admin-view"> Utilizatori</a></li>
                         <li><a href="#" id="logout"> Logout</a></li>
                     </ul>
                 </nav>
@@ -103,6 +118,61 @@ if(isset($_POST['logout']))
         </div>
         <div class="main-container">
             <div class="main wrapper clearfix">
+                <section id="crud">
+                    <h2> Administrate urilizatori </h2>
+                    <table>
+                        <th>Ap.</th>
+                        <th>Nume</th>
+                        <th>Locatari</th>
+                        <th><button type="button" data-toggle="modal" data-target="addUser" id="addbutton">Adaugare</button></th>
+                        <tr><td>1</td>
+                            <td>Mihai</td>
+                            <td>5</td>
+                            <td id="buttonstd"><button type="button" data-toggle="modal" data-target="editUser" id="editbutton">Editare</button><button type="button" id="deletebutton">Stergere</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- The Add Modal -->
+                    <div id="addUser" class="modal">
+                      <!-- Modal content -->
+                      <div class="modal-content">
+                          <div class="modal-header">
+                            <span class="close">&times;</span>
+                            <h2>Adaugare utilizator</h2>
+                          </div>
+                        <div class="modal-body">
+                            <form>
+                              <label class="control-label" for="apartment">Apartament:</label><input type="text" name="title" required />
+                              <label class="control-label" for="name">Nume:</label><input type="number" name="title" required />
+                              <label class="control-label" for="persons">Numar de persoane:</label><input type="number" name="title" required />
+                                <input type="submit" name="adduser" value="Add" id="adduser">
+                            </form>
+                          </div>
+                      </div>
+
+                    </div>
+                     <!-- The Edit Modal -->
+                    <div id="editUser" class="modal">
+                      <!-- Modal content -->
+                      <div class="modal-content">
+                          <div class="modal-header">
+                            <span class="close">&times;</span>
+                            <h2>Editare utilizator</h2>
+                          </div>
+                          <div class="modal-body">
+                            <form>
+                              <label class="control-label" for="apartment">Apartament:</label><input type="text" name="title" required />
+                              <label class="control-label" for="name">Nume:</label><input type="number" name="title" required />
+                              <label class="control-label" for="persons">Numar de persoane:</label><input type="number" name="title" required />
+                                <input type="submit" name="edituser" value="Salvare" id="edituser">
+                            </form>
+                          </div>
+                      </div>
+                          
+
+                    </div>
+                </section>
+                <section id="home">
                 <article>
                     <div class="user-view">
                         <p> Facturi </p>
@@ -129,6 +199,7 @@ if(isset($_POST['logout']))
                     <h3>Videouri informative</h3>
                     <iframe width="300" height="300" src="https://www.youtube.com/embed/2UHzZGm3rRQ" frameborder="0" allowfullscreen></iframe>
                 </aside>
+                </section>
                 <div id="chat-start"> Start Chat</div>
                 <div id="chat">
                 <p class="welcome">Welcome, <b><?php echo $_SESSION['email']; ?></b></p>
