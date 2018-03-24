@@ -1,4 +1,7 @@
 <!doctype html>
+
+
+Inutil . Poate fi sters
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
@@ -9,7 +12,6 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/normalize.min.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="js/vendor/jquery-1.11.2.min.js"></script>
         <script src="js/main.js"></script>
@@ -62,13 +64,14 @@
             <div id="wrapper">
 
 <div id="login_form">
- <h1>LOGIN FORM</h1>
+ 
  <form method="post" action="do_login.php" onsubmit="return do_login();">
-  <input type="text" name="emailid" id="emailid" placeholder="Enter Email">
+     <h1>Login</h1>
+  <input type="text" name="emailid" id="emailid" placeholder="Enter Name">
   <br>
-  <input type="password" name="password" id="password" placeholder="***********">
+  <input type="password" name="password" id="password" placeholder="Enter Password">
   <br>
-  <input type="submit" name="login" value="DO LOGIN" id="login_button">
+  <input type="submit" name="login" value="LOGIN" id="login_button">
  </form>
 </div>
 
