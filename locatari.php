@@ -5,6 +5,7 @@ $username = "root";
 $password = "";
 $databasename = "user";
 $connect = mysqli_connect($host, $username, $password, $databasename);
+
 if ($_POST['action'] == 'addUser') {
     $ap = $_POST['ap'];
     $nume = $_POST['nume'];
@@ -33,10 +34,33 @@ if ($_POST['action'] == 'addUser') {
         echo "fail";
     }
     exit();
+} else if ($_POST['action'] == 'deleteUser') {
+    $id = $_POST['id'];
+    $sql = "delete from locatari where user_id = '$id'";
+    $result = mysqli_query($connect, $sql);
+    if ($row = mysqli_fetch_assoc($result)) {
+        echo "gg";
+    } else {
+        echo "fail";
+    }
+    $sql = "delete from users where user_id = '$id'";
+    $result = mysqli_query($connect, $sql);
+    if ($row = mysqli_fetch_assoc($result)) {
+        echo "gg";
+    } else {
+        echo "fail";
+    }
+    exit();
 } else if ($_POST['action'] == 'getAll') {
     $sql = "select * from locatari";
     $result = mysqli_query($connect, $sql);
-    echo $result;
+    while ($row = $result->fetch_assoc()) {
+        $json[] = $row;
+    }
+    $data['data'] = $json;
+    $data['total'] = mysqli_num_rows($result);
+    echo json_encode($data);
     exit();
 }
 ?>
+

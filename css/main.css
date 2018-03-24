@@ -536,10 +536,10 @@ button {
     margin:2px;
     width:80px;
 }
-#editbutton{
+.editbutton{
      background-color: #008CBA;
 }
-#deletebutton{
+.deleteUser{
     background-color: #f44336;
 }
 

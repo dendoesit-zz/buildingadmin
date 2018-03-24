@@ -17,6 +17,31 @@ if (isset($_POST['logout'])) {
     <script src="js/vendor/jquery-1.11.2.min.js"></script>
     <script src="js/main.js"></script>
     <script>
+        function addUser(){
+    var ap = $("#addapnr").val();
+    var nume = $("#addname").val();
+    var nr_pers = $("#addnrpers").val();
+    console.log(ap,nume,nr_pers);
+     request = $.ajax({
+                    url: "locatari.php",
+                    type: "post",
+                    data: {
+                        action: 'addUser',
+                        ap : ap,
+                        nume: nume,
+                        nr_pers: nr_pers
+                    }
+                });
+                // Callback handler that will be called on success
+                request.done(function (response) {
+                    // Log a message to the console
+                    console.log( response + " was the resp");
+                    // refresh table
+                    manageRow(data);
+                });
+     };
+        
+        
         function do_login() {
             var email = $("#emailid").val();
             var pass = $("#password").val();
@@ -86,7 +111,6 @@ if (isset($_POST['logout'])) {
                 $("#home").show();
                 $("#crud").hide();
             });
-
         });
     </script>
 
@@ -124,8 +148,11 @@ if (isset($_POST['logout'])) {
                     <th>Nume</th>
                     <th>Locatari</th>
                     <th>
+                        
                         <button type="button" data-toggle="modal" data-target="addUser" id="addbutton">Adaugare</button>
                     </th>
+                    <tbody>
+<!--
                     <tr>
                         <td>1</td>
                         <td>Mihai</td>
@@ -136,6 +163,8 @@ if (isset($_POST['logout'])) {
                             <button type="button" id="deletebutton">Stergere</button>
                         </td>
                     </tr>
+-->
+                    </tbody>
                 </table>
                 <!-- The Add Modal -->
                 <div id="addUser" class="modal">
@@ -146,14 +175,10 @@ if (isset($_POST['logout'])) {
                             <h2>Adaugare utilizator</h2>
                         </div>
                         <div class="modal-body">
-                            <form>
-                                <label class="control-label" for="apartment">Apartament:</label><input type="text"
-                                                                                                       name="title"
-                                                                                                       required/>
-                                <label class="control-label" for="name">Nume:</label><input type="number" name="title"
-                                                                                            required/>
-                                <label class="control-label" for="persons">Numar de persoane:</label><input
-                                        type="number" name="title" required/>
+                            <form id="addUserForm" action="addUser" method="post">
+                                <label class="control-label" for="apartment">Apartament:</label><input type="number" id="addapnr" name="addapnr" required/>
+                                <label class="control-label" for="name">Nume:</label><input type="text" id="addname" name="addname" required/>
+                                <label class="control-label" for="persons">Numar de persoane:</label><input type="number" id="addnrpers" name="addnrpers" required/>
                                 <input type="submit" name="adduser" value="Add" id="adduser">
                             </form>
                         </div>
@@ -169,20 +194,16 @@ if (isset($_POST['logout'])) {
                             <h2>Editare utilizator</h2>
                         </div>
                         <div class="modal-body">
-                            <form>
-                                <label class="control-label" for="apartment">Apartament:</label><input type="text"
-                                                                                                       name="title"
-                                                                                                       required/>
-                                <label class="control-label" for="name">Nume:</label><input type="number" name="title"
-                                                                                            required/>
+                                <form id="editUser" method="post" action="locatari.php" onsubmit="return edit_user();">
+
+                                <label class="control-label" for="apartment">Apartament:</label><input type="text" required/>
+                                <label class="control-label" for="name">Nume:</label><input type="number" name="title" required/>
                                 <label class="control-label" for="persons">Numar de persoane:</label><input
                                         type="number" name="title" required/>
                                 <input type="submit" name="edituser" value="Salvare" id="edituser">
                             </form>
                         </div>
                     </div>
-
-
                 </div>
             </section>
             <section id="home">
