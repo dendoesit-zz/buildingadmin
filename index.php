@@ -17,29 +17,6 @@ if (isset($_POST['logout'])) {
     <script src="js/vendor/jquery-1.11.2.min.js"></script>
     <script src="js/main.js"></script>
     <script>
-        function addUser(){
-    var ap = $("#addapnr").val();
-    var nume = $("#addname").val();
-    var nr_pers = $("#addnrpers").val();
-    console.log(ap,nume,nr_pers);
-     request = $.ajax({
-                    url: "locatari.php",
-                    type: "post",
-                    data: {
-                        action: 'addUser',
-                        ap : ap,
-                        nume: nume,
-                        nr_pers: nr_pers
-                    }
-                });
-                // Callback handler that will be called on success
-                request.done(function (response) {
-                    // Log a message to the console
-                    console.log( response + " was the resp");
-                    // refresh table
-                    manageRow(data);
-                });
-     };
         
         
         function do_login() {
@@ -144,6 +121,7 @@ if (isset($_POST['logout'])) {
             <section id="crud">
                 <h2> Administrate urilizatori </h2>
                 <table>
+                    <thead>
                     <th>Ap.</th>
                     <th>Nume</th>
                     <th>Locatari</th>
@@ -151,7 +129,8 @@ if (isset($_POST['logout'])) {
                         
                         <button type="button" data-toggle="modal" data-target="addUser" id="addbutton">Adaugare</button>
                     </th>
-                    <tbody>
+                    </thead>
+                    <tbody id="locatari">
 <!--
                     <tr>
                         <td>1</td>

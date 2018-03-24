@@ -38,7 +38,8 @@
             rows = rows + '</tr>';
         });
         console.log(rows);
-        $("tbody").append(rows);
+        $("#locatari").empty();
+        $("#locatari").append(rows);
         rows = "";
         $("#addbutton").click(function(){
             $("#addUserModal").show();
