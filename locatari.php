@@ -10,22 +10,27 @@ if ($_POST['action'] == 'addUser') {
     $ap = $_POST['ap'];
     $nume = $_POST['nume'];
     $nr_pers = $_POST['nr_pers'];
-    $sql = "insert into users (email, pwd, role) values('$nume''$ap', '$nume''$nr_pers', 'locatar')";
+    $sql = "insert into users (id, email, pw, role) values(NULL, '$nume', '$nume$nr_pers', 'locatar')";
+    echo $sql;
     $result = mysqli_query($connect, $sql);
     if ($result) {
-        $sql = "select * from users where email = '$nume''$ap'";
-        $result = mysqli_query($connect, $sql);
-        if ($row = mysqli_fetch_assoc($result)) {
-            $id = $row['id'];
-            $sql = "insert into locatari (ap, nume, nr_pers, user_id) values(''$ap', '$nume', '$nr_pers', $id)";
-            $result = mysqli_query($connect, $sql);
-            echo "gg";
-        } else {
-            echo "fail";
-        }
+        echo "gg";
     } else {
         echo "fail";
     }
+    $sql = "select * from users where email = '$nume'";
+    $result = mysqli_query($connect, $sql);
+        if ($row = mysqli_fetch_assoc($result)) {
+            $id = $row['id'];
+            $sql = "insert into locatari (id, ap, nume, nr_pers, user_id) values(NULL,$ap, '$nume', $nr_pers, $id)";
+            $result = mysqli_query($connect, $sql);
+            if ($result){
+                echo "gg";
+            } else {
+                echo "fail here";
+            }
+        }
+    
     exit();
 } else if ($_POST['action'] == 'editUser') {
     $ap = $_POST['ap'];

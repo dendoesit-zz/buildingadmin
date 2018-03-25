@@ -1,6 +1,5 @@
 //If user submits the form
 $(document).ready(function () {
-
     // ---------------------------------------------> GET ALL USERS
     request = $.ajax({
         url: "locatari.php",
@@ -17,29 +16,6 @@ $(document).ready(function () {
         manageRow(data.data);
     });
 
-<<<<<<< HEAD
-//If user submits the form
- $(document).ready(function(){
-     
-     
-     // ---------------------------------------------> GET ALL USERS
-     request = $.ajax({
-                    url: "locatari.php",
-                    type: "post",
-                    data: {
-                        action: 'getAll',
-                    }
-                });
-                // Callback handler that will be called on success
-                request.done(function (response) {
-                    // Log a message to the console
-                    console.log( response + " was the resp");
-                    data = $.parseJSON(response);
-                    manageRow(data.data);
-                });
-     
-=======
->>>>>>> 9521811c25c3f69eb22391ff3378ea50df60568d
     function manageRow(data) {
         console.log(data);
 //        data = $.parseJSON(data);
