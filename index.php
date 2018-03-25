@@ -163,7 +163,7 @@ if (isset($_POST['logout'])) {
                             <h2>Editare utilizator</h2>
                         </div>
                         <div class="modal-body">
-                                <label class="control-label" for="apartment">Apartament:</label><input type="number" required/>
+                                <label class="control-label" for="apartment">Apartament:</label><input type="number" id="editapnr" name="editapnr" required/>
                                 <label class="control-label" for="name">Nume:</label>
                                 <input type="text" id="editname" name="editname" required/>
                                 <label class="control-label" for="persons">Numar de persoane:</label><input

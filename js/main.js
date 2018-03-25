@@ -1,5 +1,8 @@
 //If user submits the form
 $(document).ready(function () {
+    editUser(6,5,'newdan',3);
+    getData()
+function getData(){
     // ---------------------------------------------> GET ALL USERS
     request = $.ajax({
         url: "locatari.php",
@@ -13,10 +16,7 @@ $(document).ready(function () {
         // Log a message to the console
         console.log(response + " was the resp");
         data = $.parseJSON(response);
-        manageRow(data.data);
-    });
-
-    function manageRow(data) {
+        data = data.data        
         console.log(data);
 //        data = $.parseJSON(data);
 //        data = data.data
@@ -60,7 +60,7 @@ $(document).ready(function () {
             $("#editUser").find("input[name='editnrpers']").val(loc);
 
             $("#saveuser").click(function () {
-                var newap = $("#addapnr").val();
+                var newap = $("#editapnr").val();
                 var newnume = $("#editname").val();
                 var newloc = $("#editnrpers").val();
                 editUser(id, newap, newnume, newloc);
@@ -75,7 +75,8 @@ $(document).ready(function () {
             console.log(ap, nume, nr_pers);
             addUser(ap, nume, nr_pers);
         })
-    };
+    });
+};
 
     // ---------------------------------------------> ADD USER
     function addUser(ap, nume, nr_pers) {
@@ -94,7 +95,7 @@ $(document).ready(function () {
         request.done(function (response) {
             console.log('it worked')
             $("#addUserModal").hide();
-            manageRow(data);
+            getData();
         });
         request.fail(function (jqXHR, textStatus, errorThrown) {
             if (jqXHR.status && jqXHR.status == 400) {
@@ -126,7 +127,7 @@ $(document).ready(function () {
             console.log(response + " was the resp");
             // refresh table
             $("#editUser").hide();
-            manageRow(data);
+            getData();
         });
         request.fail(function (jqXHR, textStatus, errorThrown) {
             // Log the error to the console
@@ -152,7 +153,7 @@ $(document).ready(function () {
             // Log a message to the console
             console.log(response + " was the resp");
             // refresh table
-            manageRow(data);
+            getData();
         });
     };
 

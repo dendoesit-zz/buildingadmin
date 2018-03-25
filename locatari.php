@@ -37,12 +37,19 @@ if ($_POST['action'] == 'addUser') {
     $nume = $_POST['nume'];
     $nr_pers = $_POST['nr_pers'];
     $id = $_POST['id'];
-    $sql = "update users set nume = '$nume', ap = '$ap', nr_pers = '$nr_pers' where id = $id";
+    $sql = "update users set email = '$nume', pw='$nume$nr_pers', role = 'locatar' where id = $id";
     $result = mysqli_query($connect, $sql);
     if ($result) {
         echo "gg";
     } else {
-        echo "fail";
+        echo "fail in users";
+    }
+    $sql = "update locatari set ap = '$ap' , nume = '$nume', nr_pers = '$nr_pers' where id = $id";
+    $result = mysqli_query($connect, $sql);
+    if ($result) {
+        echo "gg";
+    } else {
+        echo "fail in locatari";
     }
     exit();
 } else if ($_POST['action'] == 'deleteUser') {
@@ -50,12 +57,12 @@ if ($_POST['action'] == 'addUser') {
     $sql = "delete from locatari where user_id = '$id'";
     $result = mysqli_query($connect, $sql);
     if ($row = mysqli_fetch_assoc($result)) {
-        $sql = "delete from users where user_id = '$id'";
+        $sql = "delete from users where id = '$id'";
         $result = mysqli_query($connect, $sql);
         if ($row = mysqli_fetch_assoc($result)) {
             echo "gg";
         } else {
-            echo "fail";
+            echo "fail in users";
         }
     } else {
         echo "fail";
