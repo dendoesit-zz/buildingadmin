@@ -34,7 +34,6 @@ $(document).ready(function () {
             rows = rows + '</td>';
             rows = rows + '</tr>';
         });
-        console.log(rows);
         $("#locatari").empty();
         $("#locatari").append(rows);
         rows = "";
@@ -94,18 +93,13 @@ $(document).ready(function () {
         // Callback handler that will be called on success
         request.done(function (response) {
             console.log('it worked')
-            // Log a message to the console
-            //console.log( response + " was the resp");
-            // refresh table
-            //alert('IT WORKED');
-            //manageRow(data);
+            $("#addUserModal").hide();
+            manageRow(data);
         });
         request.fail(function (jqXHR, textStatus, errorThrown) {
             if (jqXHR.status && jqXHR.status == 400) {
                 alert(jqXHR.responseText);
-            }
-            $("editUser").hide();
-            // Log the error to the console
+            }            // Log the error to the console
             console.error(
                 "The following error occurred: " +
                 textStatus, errorThrown
@@ -131,6 +125,7 @@ $(document).ready(function () {
             // Log a message to the console
             console.log(response + " was the resp");
             // refresh table
+            $("#editUser").hide();
             manageRow(data);
         });
         request.fail(function (jqXHR, textStatus, errorThrown) {

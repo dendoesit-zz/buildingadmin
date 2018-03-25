@@ -127,7 +127,6 @@ if (isset($_POST['logout'])) {
                         <th>Nume</th>
                         <th>Locatari</th>
                         <th>
-
                             <button type="button" data-toggle="modal" data-target="addUser" id="addbutton">Adaugare
                             </button>
                         </th>
@@ -136,6 +135,8 @@ if (isset($_POST['logout'])) {
                     <tbody id="locatari">
                     </tbody>
                 </table>
+                
+                
                 <!-- The Add Modal -->
                 <div id="addUserModal" class="modal">
                     <!-- Modal content -->
@@ -145,20 +146,13 @@ if (isset($_POST['logout'])) {
                             <h2>Adaugare utilizator</h2>
                         </div>
                         <div class="modal-body">
-                            <form id="addUserForm" action="" method="post">
-                                <label class="control-label" for="apartment">Apartament:</label><input type="number"
-                                                                                                       id="addapnr"
-                                                                                                       name="addapnr"
-                                                                                                       required/>
-                                <label class="control-label" for="name">Nume:</label><input type="text" id="addname"
-                                                                                            name="addname" required/>
+                            <label class="control-label" for="apartment">Apartament:</label><input type="number" id="addapnr" name="addapnr"  required/>
+                                <label class="control-label" for="name">Nume:</label><input type="text" id="addname" name="addname" required/>
                                 <label class="control-label" for="persons">Numar de persoane:</label><input
                                         type="number" id="addnrpers" name="addnrpers" required/>
                                 <input type="submit" name="adduser" value="Add" id="adduser">
-                            </form>
                         </div>
                     </div>
-
                 </div>
                 <!-- The Edit Modal -->
                 <div id="editUser" class="modal">
@@ -169,17 +163,12 @@ if (isset($_POST['logout'])) {
                             <h2>Editare utilizator</h2>
                         </div>
                         <div class="modal-body">
-                            <form id="editUserForm" method="post">
-                                <label class="control-label" for="apartment">Apartament:</label><input type="number"
-                                                                                                       id="editapnr"
-                                                                                                       name="editapnr"
-                                                                                                       required/>
+                                <label class="control-label" for="apartment">Apartament:</label><input type="number" required/>
                                 <label class="control-label" for="name">Nume:</label>
                                 <input type="text" id="editname" name="editname" required/>
                                 <label class="control-label" for="persons">Numar de persoane:</label><input
                                         type="number" id="editnrpers" name="editnrpers" required/>
                                 <input type="submit" name="saveuser" value="Salvare" id="saveuser">
-                            </form>
                         </div>
                     </div>
                 </div>
