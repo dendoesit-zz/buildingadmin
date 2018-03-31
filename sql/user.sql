@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2018 at 06:21 PM
+-- Generation Time: Mar 31, 2018 at 01:00 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.5.38
 
@@ -23,6 +23,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `facturi`
+--
+
+CREATE TABLE `facturi` (
+  `id_locatar` int(11) NOT NULL,
+  `luna` int(11) NOT NULL,
+  `an` year(4) NOT NULL,
+  `suma` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `locatari`
 --
 
@@ -33,6 +46,13 @@ CREATE TABLE `locatari` (
   `nr_pers` int(10) NOT NULL,
   `user_id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `locatari`
+--
+
+INSERT INTO `locatari` (`id`, `ap`, `nume`, `nr_pers`, `user_id`) VALUES
+  (1, 1, 'gigi', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -52,12 +72,18 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `pw`, `role`) VALUES
-(1, 'demo@demo.com', 'demo', 'admin'),
-(2, 'd', 'd', 'admin');
+  (1, 'demo@demo.com', 'demo', 'admin'),
+  (2, 'd', 'd', 'admin');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `facturi`
+--
+ALTER TABLE `facturi`
+  ADD PRIMARY KEY (`id_locatar`,`luna`,`an`);
 
 --
 -- Indexes for table `locatari`
@@ -80,7 +106,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `locatari`
 --
 ALTER TABLE `locatari`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -89,6 +115,12 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `facturi`
+--
+ALTER TABLE `facturi`
+  ADD CONSTRAINT `facturi_locatari_fk` FOREIGN KEY (`id_locatar`) REFERENCES `locatari` (`id`);
 
 --
 -- Constraints for table `locatari`
