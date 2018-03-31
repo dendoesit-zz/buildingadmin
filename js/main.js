@@ -1,7 +1,13 @@
 //If user submits the form
 $(document).ready(function () {
-    editUser(6,5,'newdan',3);
+    $("#seeFact").click(function() {
+        console.log('hei');
+        var an = $('#luna').val()
+        var luna = $('#an').val()
+        getFactLuna(luna,an);
+    });
     getData()
+    getFacturi()
 function getData(){
     // ---------------------------------------------> GET ALL USERS
     request = $.ajax({
@@ -27,6 +33,7 @@ function getData(){
             rows = rows + '<tr>';
             rows = rows + '<td>' + value.ap + '</td>';
             rows = rows + '<td>' + value.nume + '</td>';
+            rows = rows + '<td>'  + 100 +  '</td>';
             rows = rows + '<td>' + value.nr_pers + '</td>';
             rows = rows + '<td data-id="' + value.user_id + '">';
             rows = rows + '<button type="button" data-toggle="modal" data-target="editUser" class="editUser">Editare </button>';
@@ -80,7 +87,6 @@ function getData(){
 
     // ---------------------------------------------> ADD USER
     function addUser(ap, nume, nr_pers) {
-        console.log(ap, nume, nr_pers);
         request = $.ajax({
             url: "locatari.php",
             type: "post",
@@ -158,10 +164,186 @@ function getData(){
     };
 
 
-    // ---------------------------------------------> MODAL
+    // ---------------------------------------------> Facturi
 
-// Get the modal
+ function getFacturi(){
+        request = $.ajax({
+        url: "facturi.php",
+        type: "post",
+        data: {
+            action: 'getFacturi',
+        }
+    });
+    // Callback handler that will be called on success
+    request.done(function (response) {
+        // Log a message to the console
+        console.log(response + " was the facturi resp");
+        data = $.parseJSON(response);
+        data = data.data        
+        console.log(data);
+//        data = $.parseJSON(data);
+//        data = data.data
+        var rows = '';
+        //$.each( data, function( key, value ) {
+        data.forEach(function (value) {
+            console.log(value);
+            rows = rows + '<tr>';
+            rows = rows + '<td>' + value.id_locatar + '</td>';
+            rows = rows + '<td>' + value.luna + '</td>';
+            rows = rows + '<td>' + value.an + '</td>';
+            rows = rows + '<td>'  + value.suma +  '</td>';
+            rows = rows + '<td data-id="' + value.user_id + '">';
+            rows = rows + '<button type="button" data-toggle="modal" data-target="editFact" class="editFact">Editare </button>';
+            rows = rows + '<button type="button" class="deleteFact">Stergere</button>';
+            rows = rows + '</td>';
+            rows = rows + '</tr>';
+        });
+        $("#facturi").empty();
+        $("#facturi").append(rows);
+        rows = "";
+    });
+     
+     
+    $("#addfactbtn").click(function() {
+        $("#addFactModal").show();
+    })
+    $('#addFact').click(function(){
+        $("#addFactModal").hide();        
+    })
+    $("#deleteFact").click(function(){
+        var id_locatar = $(this).parent("td").data('id');
+        deleteFactura(id_locatar);
+    })
+    $(".editfactbtn").click(function(){
+        $("#editFactModal").show();
+        var loc = $(this).parent("td").data('id');
+        var luna = $(this).parent("td").prev("td").prev("td").prev("td").text();
+        var an = $(this).parent("td").prev("td").prev("td").text();
+        var suma = $(this).parent("td").prev("td").text();
+        $("#editFactModal").find("input[name='editloc']").val(loc);
+        $("#editFactModal").find("input[name='editluna']").val(luna);
+        $("#editFactModal").find("input[name='editAn']").val(an);
+        $("#editFactModal").find("input[name='editSuma']").val(suma);
 
+        $("#editFact").click(function () {
+            var newloc = $("#editloc").val();
+            var newluna = $("#editluna").val();
+            var newan = $("#editAn").val();
+            var newsuma = $("#editSuma").val();
+            editUser(newloc, newluna, newan, newsuma);
+        })
+    });
+ };
+    
+function getFactLuna(luna,an){
+        request = $.ajax({
+        url: "facturi.php",
+        type: "post",
+        data: {
+            action: 'getFacturiLuna',
+            luna:luna,
+            an:an
+        }
+    });
+    // Callback handler that will be called on success
+    request.done(function (response) {
+        // Log a message to the console
+        console.log(response + " was the facturi resp");
+        data = $.parseJSON(response);
+        data = data.data        
+        console.log(data);
+        var rows = '';
+        data.forEach(function (value) {
+            console.log(value);
+            rows = rows + '<tr>';
+            rows = rows + '<td>' + value.id_locatar + '</td>';
+            rows = rows + '<td>' + value.suma + '</td>';
+            rows = rows + '<td data-id="' + value.id_locatar + '">';
+            rows = rows + '<button type="button" data-toggle="modal" data-target="editFact" class="editfactbtn">Editare </button>';
+            rows = rows + '</td>';
+            rows = rows + '</tr>';
+        });
+        $("#facturi").empty();
+        $("#facturi").append(rows);
+        rows = "";
+    });
+ };
+    
+    function addFactura(){
+      request = $.ajax({
+            url: "facturi.php",
+            type: "post",
+            data: {
+                action: 'addFactura',
+                suma: suma,
+                luna: luna,
+                an: an
+            }
+        });
+        // Callback handler that will be called on success
+        request.done(function (response) {
+            console.log('it worked')
+            $("#addFactModal").hide();
+            getFacturi();
+        });
+        request.fail(function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status && jqXHR.status == 400) {
+                alert(jqXHR.responseText);
+            }            // Log the error to the console
+            console.error(
+                "The following error occurred: " +
+                textStatus, errorThrown
+            );
+        });
+    };
+    function editFactura(newloc, newluna, newan, newsuma){
+        request = $.ajax({
+            url: "facturi.php",
+            type: "post",
+            data: {
+                action: 'updateFactura',
+                id_locatar: newloc,
+                suma: newsuma,
+                luna: newluna,
+                an: newan
+            }
+        });
+        // Callback handler that will be called on success
+        request.done(function (response) {
+            // Log a message to the console
+            console.log(response + " was the resp");
+            // refresh table
+            $("#editFactModal").hide();
+            getFacturi();
+        });
+        request.fail(function (jqXHR, textStatus, errorThrown) {
+            // Log the error to the console
+            console.error(
+                "The following error occurred: " +
+                textStatus, errorThrown
+            );
+        });
+    }
+    function deleteFactura(id) {
+        console.log(id_locatar);
+        request = $.ajax({
+            url: "facturi.php",
+            type: "post",
+            data: {
+                action: 'deleteFact',
+                id_locatar:id_locatar
+            }
+        });
+        // Callback handler that will be called on success
+        request.done(function (response) {
+            // Log a message to the console
+            console.log(response + " was the resp");
+            // refresh table
+            getFacturi();
+        });
+    };
+    
+    
 
     // ---------------------------------------------> CHAT
 

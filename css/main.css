@@ -503,6 +503,9 @@ button:hover {
 #crud{
     display:none;
 }
+#facturiSection{
+    display:none;
+}
 table{
     width:50%;
     height:200px;

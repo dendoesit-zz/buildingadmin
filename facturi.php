@@ -46,6 +46,22 @@ if ($_POST['action'] == 'addFactura') {
         echo "fail";
     }
     exit();
+} else if ($_POST['action'] == 'getFacturi') {
+    $sql = "select * from facturi";
+    $result = mysqli_query($connect, $sql);
+    while ($row = $result->fetch_assoc()) {
+        $json[] = $row;
+    }
+    $data['data'] = $json;
+    $data['total'] = mysqli_num_rows($result);
+    echo json_encode($data);
+    exit();
+} else if ($_POST['action'] == 'deleteFact') {
+    $id_locatar = $_POST['id_locatar'];
+    $sql = "delete from facturi where id_locatar = '$id_locatar'";
+    $result = mysqli_query($connect, $sql);
+    
+    exit();
 }
 ?>
 

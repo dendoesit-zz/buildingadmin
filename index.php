@@ -82,11 +82,13 @@ if (isset($_POST['logout'])) {
             }
             $("#crudpage").click(function () {
                 $("#crud").show();
+                $("#facturiSection").show();
                 $("#home").hide();
             });
             $("#homepage").click(function () {
                 $("#home").show();
                 $("#crud").hide();
+                $("#facturiSection").hide();
             });
         });
     </script>
@@ -125,7 +127,8 @@ if (isset($_POST['logout'])) {
                     <tr>
                         <th>Ap.</th>
                         <th>Nume</th>
-                        <th>Locatari</th>
+                        <th>Suma de plata</th>
+                        <th>Locatari</th>  
                         <th>
                             <button type="button" data-toggle="modal" data-target="addUser" id="addbutton">Adaugare
                             </button>
@@ -173,6 +176,62 @@ if (isset($_POST['logout'])) {
                     </div>
                 </div>
             </section>
+            
+            <section id="facturiSection">
+                <h2> Facturi </h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Locatar</th>
+                        <th>Luna</th>
+                        <th>An</th>
+                        <th>Suma</th>
+                        <th>
+                            <button type="button" data-toggle="modal" data-target="addFact" id="addfactbtn">Adaugare
+                            </button>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody id="facturi">
+                    </tbody>
+                </table>
+                
+                
+                <!-- The Add Factura Modal -->
+                <div id="addFactModal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span class="close">&times;</span>
+                            <h2>Adaugare factura</h2>
+                        </div>
+                        <div class="modal-body">
+                            <label class="control-label" for="locatar">Locatar:</label><input type="number" id="addloc" name="addloc"  required/>
+                                <label class="control-label" for="luna">Luna:</label><input type="number" id="addluna" name="addluna" required/>
+                                <label class="control-label" for="an">An:</label><input type="number" id="addAn" name="addAn" required/>
+                                <label class="control-label" for="suma">Suma:</label><input type="number" id="addSuma" name="addSuma" required/>
+                                <input type="submit" name="addFact" value="Add" id="addFact">
+                        </div>
+                    </div>
+                </div>
+                <!-- The Edit Factura Modal -->
+                <div id="editFactModal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <span class="close">&times;</span>
+                            <h2>Editare factura</h2>
+                        </div>
+                        <div class="modal-body">
+                            <label class="control-label" for="locatar">Locatar:</label><input type="number" id="editloc" name="editloc"  required/>
+                            <label class="control-label" for="luna">Luna:</label><input type="number" id="editluna" name="editluna" required/>
+                            <label class="control-label" for="an">An:</label><input type="number" id="editAn" name="editAn" required/>
+                            <label class="control-label" for="suma">Suma:</label><input type="number" id="editSuma" name="editSuma" required/>
+                            <input type="submit" name="editFact" value="Save" id="editFact">
+                        </div>
+                    </div>
+                </div>
+            </section>
             <section id="home">
                 <article>
                     <div class="user-view">
@@ -184,14 +243,22 @@ if (isset($_POST['logout'])) {
                         </ol>
                     </div>
                     <div class="admin-view">
-                        <h2>Restantieri</h2>
-                        <div class="dropdown">
-                            <button class="dropbtn">Dropdown</button>
-                            <div class="dropdown-content">
-                                <a href="#">Link 1</a>
-                                <a href="#">Link 2</a>
-                                <a href="#">Link 3</a>
-                            </div>
+                        <h2>Facturi</h2>
+                        <div id="ContainerFacturi">
+                            <p>Facturi pentru</p>
+                            <select id="luna">
+                                <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option>
+                            </select>
+                            <select id="an">
+                                <option>2018</option>
+                                <option>2017</option>
+                                <option>2016</option>
+                            </select>
+                            <input type="submit" id="seeFact" value="Vezi Factura">
+                            <table id="FacturiPeLuna">
+                                <thead><th>Locatar</th><th>Suma</th></thead>
+                                <tbody id="factluna"></tbody>
+                            </table>
                         </div>
                         <h2>Graficul activitatii</h2>
                     </div>
