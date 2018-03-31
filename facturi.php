@@ -60,7 +60,6 @@ if ($_POST['action'] == 'addFactura') {
     $id_locatar = $_POST['id_locatar'];
     $sql = "delete from facturi where id_locatar = '$id_locatar'";
     $result = mysqli_query($connect, $sql);
-    
     exit();
 }
 ?>
