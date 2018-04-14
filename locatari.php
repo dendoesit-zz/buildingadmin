@@ -1,83 +1,75 @@
 <?php
 session_start();
-$host = "localhost";
-$username = "root";
-$password = "";
-$databasename = "user";
-$connect = mysqli_connect($host, $username, $password, $databasename);
+
+require_once 'idiorm.php';
+
+ORM::configure('mysql:host=localhost;dbname=user');
+ORM::configure('username', 'root');
+ORM::configure('password', 'letmein');
 
 if ($_POST['action'] == 'addUser') {
+
     $ap = $_POST['ap'];
     $nume = $_POST['nume'];
     $nr_pers = $_POST['nr_pers'];
-    $sql = "insert into users (id, email, pw, role) values(NULL, '$nume', '$nume$nr_pers', 'locatar')";
-    echo $sql;
-    $result = mysqli_query($connect, $sql);
-    if ($result) {
+    $user = ORM::for_table('users')->create();
+    $user->email = $nume;
+    $user->role = 'locatar';
+    $user->pw = $nume . $nr_pers;
+    $user->save();
+    if ($user) {
+        $locatar = ORM::for_table('locatari')->create();
+        $locatar->ap = $ap;
+        $locatar->nume = $nume;
+        $locatar->nr_pers = $nr_pers;
+        $locatar->save();
+        if($locatar) {
+            echo "gg";
+        } else {
+            echo "fail here";
+        }
         echo "gg";
     } else {
         echo "fail";
     }
-    $sql = "select * from users where email = '$nume'";
-    $result = mysqli_query($connect, $sql);
-        if ($row = mysqli_fetch_assoc($result)) {
-            $id = $row['id'];
-            $sql = "insert into locatari (id, ap, nume, nr_pers, user_id) values(NULL,$ap, '$nume', $nr_pers, $id)";
-            $result = mysqli_query($connect, $sql);
-            if ($result){
-                echo "gg";
-            } else {
-                echo "fail here";
-            }
-        }
-    
     exit();
+
 } else if ($_POST['action'] == 'editUser') {
+
     $ap = $_POST['ap'];
     $nume = $_POST['nume'];
     $nr_pers = $_POST['nr_pers'];
     $id = $_POST['id'];
-    $sql = "update users set email = '$nume', pw='$nume$nr_pers', role = 'locatar' where id = $id";
-    $result = mysqli_query($connect, $sql);
-    if ($result) {
-        echo "gg";
+    $user = ORM::forTable('users')->find_one($id)->set(array('email' => $nume, 'pw' => $nume . $nr_pers))->save();
+    if ($user) {
+        $locatar = ORM::forTable('locatari')->find_one($id)->set(array('ap' => $ap, 'nume' => $nume, 'nr_pers' =>$nr_pers))->save();
+        if ($locatar) {
+            echo "gg";
+        } else {
+            echo "fail in locatari";
+        }
     } else {
         echo "fail in users";
     }
-    $sql = "update locatari set ap = '$ap' , nume = '$nume', nr_pers = '$nr_pers' where id = $id";
-    $result = mysqli_query($connect, $sql);
-    if ($result) {
-        echo "gg";
-    } else {
-        echo "fail in locatari";
-    }
     exit();
+
 } else if ($_POST['action'] == 'deleteUser') {
-    $id = $_POST['id'];
-    $sql = "delete from locatari where user_id = '$id'";
-    $result = mysqli_query($connect, $sql);
-    if ($row = mysqli_fetch_assoc($result)) {
-        $sql = "delete from users where id = '$id'";
-        $result = mysqli_query($connect, $sql);
-        if ($row = mysqli_fetch_assoc($result)) {
-            echo "gg";
-        } else {
-            echo "fail in users";
-        }
-    } else {
-        echo "fail";
-    }
+
+    $id_locatar = $_POST['id'];
+    $locatar = ORM::forTable('locatari')->find_one($id_locatar);
+    $id_user = $locatar->$id_user;
+    $locatar -> delete();
+    $user = ORM::forTable('users')->find_one($id_user);
+    $user -> delete();
+    echo "gg";
     exit();
+
 } else if ($_POST['action'] == 'getAll') {
-    $sql = "select * from locatari";
-    $result = mysqli_query($connect, $sql);
-    while ($row = $result->fetch_assoc()) {
-        $json[] = $row;
-    }
-    $data['data'] = $json;
-    $data['total'] = mysqli_num_rows($result);
+
+    $allLocatari = ORM::for_table('locatari')->find_array();
+    $data['data'] = $allLocatari;
+    $data['total'] = count($allLocatari);
     echo json_encode($data);
     exit();
 }
 ?>
-

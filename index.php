@@ -5,7 +5,6 @@ if (isset($_POST['logout'])) {
     unset($_SESSION['email']);
 }
 ?>
-
 <html>
 <head>
     <meta charset="utf-8">
@@ -128,7 +127,7 @@ if (isset($_POST['logout'])) {
                         <th>Ap.</th>
                         <th>Nume</th>
                         <th>Suma de plata</th>
-                        <th>Locatari</th>  
+                        <th>Locatari</th>
                         <th>
                             <button type="button" data-toggle="modal" data-target="addUser" id="addbutton">Adaugare
                             </button>
@@ -138,8 +137,8 @@ if (isset($_POST['logout'])) {
                     <tbody id="locatari">
                     </tbody>
                 </table>
-                
-                
+
+
                 <!-- The Add Modal -->
                 <div id="addUserModal" class="modal">
                     <!-- Modal content -->
@@ -150,10 +149,10 @@ if (isset($_POST['logout'])) {
                         </div>
                         <div class="modal-body">
                             <label class="control-label" for="apartment">Apartament:</label><input type="number" id="addapnr" name="addapnr"  required/>
-                                <label class="control-label" for="name">Nume:</label><input type="text" id="addname" name="addname" required/>
-                                <label class="control-label" for="persons">Numar de persoane:</label><input
-                                        type="number" id="addnrpers" name="addnrpers" required/>
-                                <input type="submit" name="adduser" value="Add" id="adduser">
+                            <label class="control-label" for="name">Nume:</label><input type="text" id="addname" name="addname" required/>
+                            <label class="control-label" for="persons">Numar de persoane:</label><input
+                                    type="number" id="addnrpers" name="addnrpers" required/>
+                            <input type="submit" name="adduser" value="Add" id="adduser">
                         </div>
                     </div>
                 </div>
@@ -166,17 +165,17 @@ if (isset($_POST['logout'])) {
                             <h2>Editare utilizator</h2>
                         </div>
                         <div class="modal-body">
-                                <label class="control-label" for="apartment">Apartament:</label><input type="number" id="editapnr" name="editapnr" required/>
-                                <label class="control-label" for="name">Nume:</label>
-                                <input type="text" id="editname" name="editname" required/>
-                                <label class="control-label" for="persons">Numar de persoane:</label><input
-                                        type="number" id="editnrpers" name="editnrpers" required/>
-                                <input type="submit" name="saveuser" value="Salvare" id="saveuser">
+                            <label class="control-label" for="apartment">Apartament:</label><input type="number" id="editapnr" name="editapnr" required/>
+                            <label class="control-label" for="name">Nume:</label>
+                            <input type="text" id="editname" name="editname" required/>
+                            <label class="control-label" for="persons">Numar de persoane:</label><input
+                                    type="number" id="editnrpers" name="editnrpers" required/>
+                            <input type="submit" name="saveuser" value="Salvare" id="saveuser">
                         </div>
                     </div>
                 </div>
             </section>
-            
+
             <section id="facturiSection">
                 <h2> Facturi </h2>
                 <table>
@@ -195,8 +194,8 @@ if (isset($_POST['logout'])) {
                     <tbody id="facturi">
                     </tbody>
                 </table>
-                
-                
+
+
                 <!-- The Add Factura Modal -->
                 <div id="addFactModal" class="modal">
                     <!-- Modal content -->
@@ -207,10 +206,10 @@ if (isset($_POST['logout'])) {
                         </div>
                         <div class="modal-body">
                             <label class="control-label" for="locatar">Locatar:</label><input type="number" id="addloc" name="addloc"  required/>
-                                <label class="control-label" for="luna">Luna:</label><input type="number" id="addluna" name="addluna" required/>
-                                <label class="control-label" for="an">An:</label><input type="number" id="addAn" name="addAn" required/>
-                                <label class="control-label" for="suma">Suma:</label><input type="number" id="addSuma" name="addSuma" required/>
-                                <input type="submit" name="addFact" value="Add" id="addFact">
+                            <label class="control-label" for="luna">Luna:</label><input type="number" id="addluna" name="addluna" required/>
+                            <label class="control-label" for="an">An:</label><input type="number" id="addAn" name="addAn" required/>
+                            <label class="control-label" for="suma">Suma:</label><input type="number" id="addSuma" name="addSuma" required/>
+                            <input type="submit" name="addFact" value="Add" id="addFact">
                         </div>
                     </div>
                 </div>

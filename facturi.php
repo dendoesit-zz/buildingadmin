@@ -1,67 +1,62 @@
 <?php
 session_start();
-$host = "localhost";
-$username = "root";
-$password = "";
-$databasename = "user";
-$connect = mysqli_connect($host, $username, $password, $databasename);
+
+require_once 'idiorm.php';
+
+ORM::configure('mysql:host=localhost;dbname=user');
+ORM::configure('username', 'root');
+ORM::configure('password', 'letmein');
 
 if ($_POST['action'] == 'addFactura') {
     $id_locatar = $_POST['id_locatar'];
     $suma = $_POST['suma'];
     $luna = $_POST['luna'];
     $an = $_POST['an'];
-    $sql = "insert into facturi (id_locatar, luna, an, suma) values($id_locatar, $luna, $an, $suma)";
-    echo $sql;
-    $result = mysqli_query($connect, $sql);
-    if ($result) {
+    $addFactura = ORM::for_table('facturi')->create();
+    $addFactura->id_locatar = $id_locatar;
+    $addFactura->luna = $luna;
+    $addFactura->an = $an;
+    $addFactura->suma = $suma;
+    $addFactura -> save();
+
+    if ($addFactura) {
         echo "gg";
     } else {
         echo "fail";
     }
     exit();
+
 } else if ($_POST['action'] == 'getFacturiLuna') {
     $luna = $_POST['luna'];
     $an = $_POST['an'];
-    $sql = "select * from facturi where luna = $luna and an = $an;";
-    $result = mysqli_query($connect, $sql);
-    while ($row = $result->fetch_assoc()) {
-        $json[] = $row;
-    }
-    $data['data'] = $json;
-    $data['total'] = mysqli_num_rows($result);
+    $facturiLuna = ORM::forTable('facturi')->where(array('luna' => $luna, 'an' => $an))->find_array();
+    $data['data'] = $facturiLuna;
+    $data['total'] = count($facturiLuna);
     echo json_encode($data);
     exit();
+
 } else if ($_POST['action'] == 'updateFactura') {
+
     $id_locatar = $_POST['id_locatar'];
     $suma = $_POST['suma'];
     $luna = $_POST['luna'];
     $an = $_POST['an'];
-    $sql = "update facturi set id_locatar = $id_locatar, luna = $luna, an = $an, suma = $suma;s";
-    echo $sql;
-    $result = mysqli_query($connect, $sql);
-    if ($result) {
-        echo "gg";
-    } else {
-        echo "fail";
-    }
+
+    $factura = ORM::forTable('facturi')->find_one($id_locatar, $luna, $an)->set(array('suma' => $suma))->save();
+    echo "gg";
     exit();
+
 } else if ($_POST['action'] == 'getFacturi') {
-    $sql = "select * from facturi";
-    $result = mysqli_query($connect, $sql);
-    while ($row = $result->fetch_assoc()) {
-        $json[] = $row;
-    }
-    $data['data'] = $json;
-    $data['total'] = mysqli_num_rows($result);
+    $facturiTotal = ORM::for_table('facturi')->find_array();
+    $data['data'] = $facturiTotal;
+    $data['total'] = count($facturiTotal);
     echo json_encode($data);
     exit();
+
 } else if ($_POST['action'] == 'deleteFact') {
     $id_locatar = $_POST['id_locatar'];
-    $sql = "delete from facturi where id_locatar = '$id_locatar'";
-    $result = mysqli_query($connect, $sql);
-    
+    $locatar = ORM::forTable('locatari')-find_one($id_locatar);
+    $locatar -> delete();
     exit();
 }
 ?>
-
