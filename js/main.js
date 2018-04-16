@@ -1,5 +1,18 @@
 //If user submits the form
 $(document).ready(function () {
+    $('body').on('click', '#addFact', function(){
+        var newloc = $("#addloc").val();
+        var newluna = $("#addluna").val();
+        var newan = $("#addAn").val();
+        var newsuma = $("#addSuma").val();
+        addFactura(newloc, newluna, newan, newsuma);
+        $("#addFactModal").hide();
+    })
+
+    $('body').on('click', '#addfactbtn', function() {
+        console.log("add fact btn pressed");
+        $("#addFactModal").show();
+    })
     $("#seeFact").click(function() {
 
         var an = $('#an').val()
@@ -23,13 +36,11 @@ $(document).ready(function () {
             console.log(response + " was the resp");
             data = $.parseJSON(response);
             data = data.data
-            console.log(data);
 //        data = $.parseJSON(data);
 //        data = data.data
             var rows = '';
             //$.each( data, function( key, value ) {
             data.forEach(function (value) {
-                console.log(value);
                 rows = rows + '<tr>';
                 rows = rows + '<td>' + value.ap + '</td>';
                 rows = rows + '<td>' + value.nume + '</td>';
@@ -52,7 +63,6 @@ $(document).ready(function () {
             })
             $(".deleteUser").click(function () {
                 var id = $(this).parent("td").data('id');
-                console.log("deleting user with id: " + id);
                 deleteUser(id);
             });
             $(".editUser").click(function () {
@@ -61,7 +71,6 @@ $(document).ready(function () {
                 var ap = $(this).parent("td").prev("td").prev("td").prev("td").prev("td").text();
                 var nume = $(this).parent("td").prev("td").prev("td").prev("td").text();
                 var loc = $(this).parent("td").prev("td").text();
-                console.log(id, ap, nume, loc);
                 $("#editUser").find("input[name='editapnr']").val(ap);
                 $("#editUser").find("input[name='editname']").val(nume);
                 $("#editUser").find("input[name='editnrpers']").val(loc);
@@ -71,15 +80,12 @@ $(document).ready(function () {
                     var newnume = $("#editname").val();
                     var newloc = $("#editnrpers").val();
                     editUser(id, newap, newnume, newloc);
-                    console.log(id, newap, newnume, newloc);
-                    console.log('you pressed');
                 })
             });
             $("#adduser").click(function () {
                 var ap = $("#addapnr").val();
                 var nume = $("#addname").val();
                 var nr_pers = $("#addnrpers").val();
-                console.log(ap, nume, nr_pers);
                 addUser(ap, nume, nr_pers);
             })
         });
@@ -99,7 +105,7 @@ $(document).ready(function () {
         });
         // Callback handler that will be called on success
         request.done(function (response) {
-            console.log('it worked')
+            console.log(response + " was the response");
             $("#addUserModal").hide();
             getData();
         });
@@ -115,7 +121,6 @@ $(document).ready(function () {
     };
 
     function editUser(id, newap, newnume, newloc) {
-        console.log(id, newap, newnume, newloc);
         request = $.ajax({
             url: "locatari.php",
             type: "post",
@@ -145,7 +150,6 @@ $(document).ready(function () {
     };
 
     function deleteUser(id) {
-        console.log(id);
         request = $.ajax({
             url: "locatari.php",
             type: "post",
@@ -180,13 +184,11 @@ $(document).ready(function () {
             console.log(response + " was the facturi resp");
             data = $.parseJSON(response);
             data = data.data
-            console.log(data);
 //        data = $.parseJSON(data);
 //        data = data.data
             var rows = '';
             //$.each( data, function( key, value ) {
             data.forEach(function (value) {
-                console.log(value);
                 rows = rows + '<tr>';
                 rows = rows + '<td>' + value.id_locatar + '</td>';
                 rows = rows + '<td>' + value.luna + '</td>';
@@ -202,13 +204,7 @@ $(document).ready(function () {
             $("#facturi").append(rows);
             rows = "";
 
-            $('#facturi').on('click', '#addfactbtn', function() {
-                $("#addFactModal").show();
-            })
-            $('#facturi').on('click', '.addFact', function(){
-                $("#addFactModal").hide();
-            })
-            $('#facturi').on('click', '.deleteFact', function(){
+            $('body').on('click', '.deleteFact', function(){
                 var id_locatar = $(this).parent("td").data('id');
                 var luna = $(this).parent("td").prev("td").prev("td").prev("td").text();
                 var an = $(this).parent("td").prev("td").prev("td").text();
@@ -216,10 +212,8 @@ $(document).ready(function () {
             })
 
             $('body').on('click', '.editFact', function(){
-                console.log('edit fact btn pressed')
                 $("#editFactModal").show();
                 var loc = $(this).parent("td").data('id');
-                console.log($(this).parent("td"));
                 var luna = $(this).parent("td").prev("td").prev("td").prev("td").text();
                 var an = $(this).parent("td").prev("td").prev("td").text();
                 var suma = $(this).parent("td").prev("td").text();
@@ -252,12 +246,11 @@ $(document).ready(function () {
         // Callback handler that will be called on success
         request.done(function (response) {
             // Log a message to the console
-            //console.log(response + " was the facturi resp");
+            console.log(response + " was the facturi resp");
             data = $.parseJSON(response);
             data = data.data
             var rows = '';
             data.forEach(function (value) {
-                console.log(value);
                 rows = rows + '<tr>';
                 rows = rows + '<td>' + value.id_locatar + '</td>';
                 rows = rows + '<td>' + value.suma + '</td>';
@@ -268,12 +261,9 @@ $(document).ready(function () {
             });
             $("#factluna").empty();
             $("#factluna").append(rows);
-            console.log(rows);
             rows = "";
 
-            console.log("add events")
             $('body').on('click', '.editfactbtn', function(){
-                console.log("edit facture btn pressed")
                 $("#editFactModal").show();
                 var loc = $(this).parent("td").data('id');
                 var luna = $('#luna').find(":selected").text();
@@ -295,12 +285,13 @@ $(document).ready(function () {
         });
     };
 
-    function addFactura(){
+    function addFactura(loc, luna, an, suma){
         request = $.ajax({
             url: "facturi.php",
             type: "post",
             data: {
                 action: 'addFactura',
+                id_locatar: loc,
                 suma: suma,
                 luna: luna,
                 an: an
@@ -308,7 +299,6 @@ $(document).ready(function () {
         });
         // Callback handler that will be called on success
         request.done(function (response) {
-            console.log('it worked')
             $("#addFactModal").hide();
             getFacturi();
         });
@@ -352,7 +342,6 @@ $(document).ready(function () {
         });
     }
     function deleteFactura(id_locatar, luna, an) {
-        console.log(id_locatar);
         request = $.ajax({
             url: "facturi.php",
             type: "post",

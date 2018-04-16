@@ -25,13 +25,13 @@ if ($_POST['action'] == 'addUser') {
         $locatar->ap = $ap;
         $locatar->nume = $nume;
         $locatar->nr_pers = $nr_pers;
+        $locatar->user_id = $user->id;
         $locatar->save();
         if($locatar) {
             echo "gg";
         } else {
             echo "fail here";
         }
-        echo "gg";
     } else {
         echo "fail";
     }
