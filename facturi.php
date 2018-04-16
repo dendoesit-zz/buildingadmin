@@ -5,7 +5,7 @@ require_once 'idiorm.php';
 
 ORM::configure('mysql:host=localhost;dbname=user');
 ORM::configure('username', 'root');
-ORM::configure('password', 'letmein');
+ORM::configure('password', '');
 
 if ($_POST['action'] == 'addFactura') {
     $id_locatar = $_POST['id_locatar'];

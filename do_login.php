@@ -6,7 +6,7 @@ if (isset($_POST['do_login'])) {
 
     ORM::configure('mysql:host=localhost;dbname=user');
     ORM::configure('username', 'root');
-    ORM::configure('password', 'letmein');
+    ORM::configure('password', '');
 
     $email = $_POST['email'];
     $pass = $_POST['password'];
