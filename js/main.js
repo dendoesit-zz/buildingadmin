@@ -4,7 +4,6 @@ $(document).ready(function () {
 
         var an = $('#an').val()
         var luna = $('#luna').val()
-        console.log('hei' + ' ' + an + ' ' + luna);
         getFactLuna(luna,an);
     });
     getData()
@@ -53,8 +52,8 @@ $(document).ready(function () {
             })
             $(".deleteUser").click(function () {
                 var id = $(this).parent("td").data('id');
+                console.log("deleting user with id: " + id);
                 deleteUser(id);
-                console.log(id);
             });
             $(".editUser").click(function () {
                 $("#editUser").show();
@@ -167,7 +166,7 @@ $(document).ready(function () {
 
     // ---------------------------------------------> Facturi
 
-    function getFacturi(){
+    function getFacturi() {
         request = $.ajax({
             url: "facturi.php",
             type: "post",
@@ -192,8 +191,8 @@ $(document).ready(function () {
                 rows = rows + '<td>' + value.id_locatar + '</td>';
                 rows = rows + '<td>' + value.luna + '</td>';
                 rows = rows + '<td>' + value.an + '</td>';
-                rows = rows + '<td>'  + value.suma +  '</td>';
-                rows = rows + '<td data-id="' + value.user_id + '">';
+                rows = rows + '<td>' + value.suma + '</td>';
+                rows = rows + '<td data-id="' + value.id_locatar + '">';
                 rows = rows + '<button type="button" data-toggle="modal" data-target="editFact" class="editFact">Editare </button>';
                 rows = rows + '<button type="button" class="deleteFact">Stergere</button>';
                 rows = rows + '</td>';
@@ -202,42 +201,45 @@ $(document).ready(function () {
             $("#facturi").empty();
             $("#facturi").append(rows);
             rows = "";
-        });
 
+            $('#facturi').on('click', '#addfactbtn', function() {
+                $("#addFactModal").show();
+            })
+            $('#facturi').on('click', '.addFact', function(){
+                $("#addFactModal").hide();
+            })
+            $('#facturi').on('click', '.deleteFact', function(){
+                var id_locatar = $(this).parent("td").data('id');
+                var luna = $(this).parent("td").prev("td").prev("td").prev("td").text();
+                var an = $(this).parent("td").prev("td").prev("td").text();
+                deleteFactura(id_locatar, luna, an);
+            })
 
-        $("#addfactbtn").click(function() {
-            $("#addFactModal").show();
-        })
-        $('#addFact').click(function(){
-            $("#addFactModal").hide();
-        })
-        $("#deleteFact").click(function(){
-            var id_locatar = $(this).parent("td").data('id');
-            deleteFactura(id_locatar);
-        })
-        $(".editfactbtn").click(function(){
-            $("#editFactModal").show();
-            var loc = $(this).parent("td").data('id');
-            var luna = $(this).parent("td").prev("td").prev("td").prev("td").text();
-            var an = $(this).parent("td").prev("td").prev("td").text();
-            var suma = $(this).parent("td").prev("td").text();
-            $("#editFactModal").find("input[name='editloc']").val(loc);
-            $("#editFactModal").find("input[name='editluna']").val(luna);
-            $("#editFactModal").find("input[name='editAn']").val(an);
-            $("#editFactModal").find("input[name='editSuma']").val(suma);
+            $('body').on('click', '.editFact', function(){
+                console.log('edit fact btn pressed')
+                $("#editFactModal").show();
+                var loc = $(this).parent("td").data('id');
+                console.log($(this).parent("td"));
+                var luna = $(this).parent("td").prev("td").prev("td").prev("td").text();
+                var an = $(this).parent("td").prev("td").prev("td").text();
+                var suma = $(this).parent("td").prev("td").text();
+                $("#editFactModal").find("input[name='editloc']").val(loc);
+                $("#editFactModal").find("input[name='editluna']").val(luna);
+                $("#editFactModal").find("input[name='editAn']").val(an);
+                $("#editFactModal").find("input[name='editSuma']").val(suma);
 
-            $("#editFact").click(function () {
-                var newloc = $("#editloc").val();
-                var newluna = $("#editluna").val();
-                var newan = $("#editAn").val();
-                var newsuma = $("#editSuma").val();
-                editUser(newloc, newluna, newan, newsuma);
+                $("#editFact").click(function () {
+                    var newloc = $("#editloc").val();
+                    var newluna = $("#editluna").val();
+                    var newan = $("#editAn").val();
+                    var newsuma = $("#editSuma").val();
+                    loc(newloc, newluna, newan, newsuma);
+                })
             })
         });
     };
 
     function getFactLuna(luna,an){
-        console.log(an + ' ' + luna);
         request = $.ajax({
             url: "facturi.php",
             type: "post",
@@ -250,10 +252,9 @@ $(document).ready(function () {
         // Callback handler that will be called on success
         request.done(function (response) {
             // Log a message to the console
-            console.log(response + " was the facturi resp");
+            //console.log(response + " was the facturi resp");
             data = $.parseJSON(response);
             data = data.data
-            console.log(data);
             var rows = '';
             data.forEach(function (value) {
                 console.log(value);
@@ -269,6 +270,28 @@ $(document).ready(function () {
             $("#factluna").append(rows);
             console.log(rows);
             rows = "";
+
+            console.log("add events")
+            $('body').on('click', '.editfactbtn', function(){
+                console.log("edit facture btn pressed")
+                $("#editFactModal").show();
+                var loc = $(this).parent("td").data('id');
+                var luna = $('#luna').find(":selected").text();
+                var an = $('#an').find(":selected").text();
+                var suma = $(this).parent("td").prev("td").text();
+                $("#editFactModal").find("input[name='editloc']").val(loc);
+                $("#editFactModal").find("input[name='editluna']").val(luna);
+                $("#editFactModal").find("input[name='editAn']").val(an);
+                $("#editFactModal").find("input[name='editSuma']").val(suma);
+
+                $("#editFact").click(function () {
+                    var newloc = $("#editloc").val();
+                    var newluna = $("#editluna").val();
+                    var newan = $("#editAn").val();
+                    var newsuma = $("#editSuma").val();
+                    editFactura(newloc, newluna, newan, newsuma);
+                })
+            })
         });
     };
 
@@ -299,13 +322,12 @@ $(document).ready(function () {
             );
         });
     };
-    function editFactura(idFac, newloc, newluna, newan, newsuma){
+    function editFactura(newloc, newluna, newan, newsuma){
         request = $.ajax({
             url: "facturi.php",
             type: "post",
             data: {
                 action: 'updateFactura',
-                id_factura: idFac,
                 id_locatar: newloc,
                 suma: newsuma,
                 luna: newluna,
@@ -318,6 +340,7 @@ $(document).ready(function () {
             console.log(response + " was the resp");
             // refresh table
             $("#editFactModal").hide();
+            getFactLuna(newluna, newan);
             getFacturi();
         });
         request.fail(function (jqXHR, textStatus, errorThrown) {
@@ -328,14 +351,16 @@ $(document).ready(function () {
             );
         });
     }
-    function deleteFactura(id) {
+    function deleteFactura(id_locatar, luna, an) {
         console.log(id_locatar);
         request = $.ajax({
             url: "facturi.php",
             type: "post",
             data: {
                 action: 'deleteFact',
-                id_locatar:id_locatar
+                id_locatar:id_locatar,
+                luna:luna,
+                an:an
             }
         });
         // Callback handler that will be called on success

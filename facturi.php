@@ -6,6 +6,9 @@ require_once 'idiorm.php';
 ORM::configure('mysql:host=localhost;dbname=user');
 ORM::configure('username', 'root');
 ORM::configure('password', '');
+ORM::configure('id_column_overrides', array(
+    'facturi' => array('id_locatar', 'luna', 'an') // a compound primary key
+));
 
 if ($_POST['action'] == 'addFactura') {
     $id_locatar = $_POST['id_locatar'];
@@ -42,7 +45,7 @@ if ($_POST['action'] == 'addFactura') {
     $luna = $_POST['luna'];
     $an = $_POST['an'];
 
-    $factura = ORM::forTable('facturi')->find_one($id_locatar, $luna, $an)->set(array('suma' => $suma))->save();
+    $factura = ORM::forTable('facturi')->where(array('id_locatar' => $id_locatar, 'luna' => $luna, 'an' => $an))->find_one()->set(array('suma' => $suma))->save();
     echo "gg";
     exit();
 
@@ -55,8 +58,9 @@ if ($_POST['action'] == 'addFactura') {
 
 } else if ($_POST['action'] == 'deleteFact') {
     $id_locatar = $_POST['id_locatar'];
-    $locatar = ORM::forTable('locatari')-find_one($id_locatar);
-    $locatar -> delete();
+    $an = $_POST['an'];
+    $luna = $_POST['luna'];
+    $locatar = ORM::forTable('facturi')->where(array('id_locatar' => $id_locatar, 'luna' => $luna, 'an' => $an))->find_one()->delete();
     exit();
 }
 ?>

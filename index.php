@@ -118,6 +118,75 @@ if (isset($_POST['logout'])) {
         </header>
     </div>
     <div class="main-container">
+        <!-- The Add Modal -->
+        <div id="addUserModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Adaugare utilizator</h2>
+                </div>
+                <div class="modal-body">
+                    <label class="control-label" for="apartment">Apartament:</label><input type="number" id="addapnr" name="addapnr"  required/>
+                    <label class="control-label" for="name">Nume:</label><input type="text" id="addname" name="addname" required/>
+                    <label class="control-label" for="persons">Numar de persoane:</label><input
+                            type="number" id="addnrpers" name="addnrpers" required/>
+                    <input type="submit" name="adduser" value="Add" id="adduser">
+                </div>
+            </div>
+        </div>
+        <!-- The Edit Modal -->
+        <div id="editUser" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Editare utilizator</h2>
+                </div>
+                <div class="modal-body">
+                    <label class="control-label" for="apartment">Apartament:</label><input type="number" id="editapnr" name="editapnr" required/>
+                    <label class="control-label" for="name">Nume:</label>
+                    <input type="text" id="editname" name="editname" required/>
+                    <label class="control-label" for="persons">Numar de persoane:</label><input
+                            type="number" id="editnrpers" name="editnrpers" required/>
+                    <input type="submit" name="saveuser" value="Salvare" id="saveuser">
+                </div>
+            </div>
+        </div>
+        <!-- The Add Factura Modal -->
+        <div id="addFactModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Adaugare factura</h2>
+                </div>
+                <div class="modal-body">
+                    <label class="control-label" for="locatar">Locatar:</label><input type="number" id="addloc" name="addloc"  required/>
+                    <label class="control-label" for="luna">Luna:</label><input type="number" id="addluna" name="addluna" required/>
+                    <label class="control-label" for="an">An:</label><input type="number" id="addAn" name="addAn" required/>
+                    <label class="control-label" for="suma">Suma:</label><input type="number" id="addSuma" name="addSuma" required/>
+                    <input type="submit" name="addFact" value="Add" id="addFact">
+                </div>
+            </div>
+        </div>
+        <!-- The Edit Factura Modal -->
+        <div id="editFactModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Editare factura</h2>
+                </div>
+                <div class="modal-body">
+                    <label class="control-label" for="locatar">Locatar:</label><input type="number" id="editloc" name="editloc"  required/>
+                    <label class="control-label" for="luna">Luna:</label><input type="number" id="editluna" name="editluna" required/>
+                    <label class="control-label" for="an">An:</label><input type="number" id="editAn" name="editAn" required/>
+                    <label class="control-label" for="suma">Suma:</label><input type="number" id="editSuma" name="editSuma" required/>
+                    <input type="submit" name="editFact" value="Save" id="editFact">
+                </div>
+            </div>
+        </div>
         <div class="main wrapper clearfix">
             <section id="crud">
                 <h2> Administrate urilizatori </h2>
@@ -137,43 +206,6 @@ if (isset($_POST['logout'])) {
                     <tbody id="locatari">
                     </tbody>
                 </table>
-
-
-                <!-- The Add Modal -->
-                <div id="addUserModal" class="modal">
-                    <!-- Modal content -->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <span class="close">&times;</span>
-                            <h2>Adaugare utilizator</h2>
-                        </div>
-                        <div class="modal-body">
-                            <label class="control-label" for="apartment">Apartament:</label><input type="number" id="addapnr" name="addapnr"  required/>
-                            <label class="control-label" for="name">Nume:</label><input type="text" id="addname" name="addname" required/>
-                            <label class="control-label" for="persons">Numar de persoane:</label><input
-                                    type="number" id="addnrpers" name="addnrpers" required/>
-                            <input type="submit" name="adduser" value="Add" id="adduser">
-                        </div>
-                    </div>
-                </div>
-                <!-- The Edit Modal -->
-                <div id="editUser" class="modal">
-                    <!-- Modal content -->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <span class="close">&times;</span>
-                            <h2>Editare utilizator</h2>
-                        </div>
-                        <div class="modal-body">
-                            <label class="control-label" for="apartment">Apartament:</label><input type="number" id="editapnr" name="editapnr" required/>
-                            <label class="control-label" for="name">Nume:</label>
-                            <input type="text" id="editname" name="editname" required/>
-                            <label class="control-label" for="persons">Numar de persoane:</label><input
-                                    type="number" id="editnrpers" name="editnrpers" required/>
-                            <input type="submit" name="saveuser" value="Salvare" id="saveuser">
-                        </div>
-                    </div>
-                </div>
             </section>
 
             <section id="facturiSection">
@@ -194,42 +226,6 @@ if (isset($_POST['logout'])) {
                     <tbody id="facturi">
                     </tbody>
                 </table>
-
-
-                <!-- The Add Factura Modal -->
-                <div id="addFactModal" class="modal">
-                    <!-- Modal content -->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <span class="close">&times;</span>
-                            <h2>Adaugare factura</h2>
-                        </div>
-                        <div class="modal-body">
-                            <label class="control-label" for="locatar">Locatar:</label><input type="number" id="addloc" name="addloc"  required/>
-                            <label class="control-label" for="luna">Luna:</label><input type="number" id="addluna" name="addluna" required/>
-                            <label class="control-label" for="an">An:</label><input type="number" id="addAn" name="addAn" required/>
-                            <label class="control-label" for="suma">Suma:</label><input type="number" id="addSuma" name="addSuma" required/>
-                            <input type="submit" name="addFact" value="Add" id="addFact">
-                        </div>
-                    </div>
-                </div>
-                <!-- The Edit Factura Modal -->
-                <div id="editFactModal" class="modal">
-                    <!-- Modal content -->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <span class="close">&times;</span>
-                            <h2>Editare factura</h2>
-                        </div>
-                        <div class="modal-body">
-                            <label class="control-label" for="locatar">Locatar:</label><input type="number" id="editloc" name="editloc"  required/>
-                            <label class="control-label" for="luna">Luna:</label><input type="number" id="editluna" name="editluna" required/>
-                            <label class="control-label" for="an">An:</label><input type="number" id="editAn" name="editAn" required/>
-                            <label class="control-label" for="suma">Suma:</label><input type="number" id="editSuma" name="editSuma" required/>
-                            <input type="submit" name="editFact" value="Save" id="editFact">
-                        </div>
-                    </div>
-                </div>
             </section>
             <section id="home">
                 <article>

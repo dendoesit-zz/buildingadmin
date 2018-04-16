@@ -6,6 +6,9 @@ require_once 'idiorm.php';
 ORM::configure('mysql:host=localhost;dbname=user');
 ORM::configure('username', 'root');
 ORM::configure('password', '');
+ORM::configure('id_column_overrides', array(
+    'facturi' => array('id_locatar', 'luna', 'an') // a compound primary key
+));
 
 if ($_POST['action'] == 'addUser') {
 
@@ -56,6 +59,10 @@ if ($_POST['action'] == 'addUser') {
 } else if ($_POST['action'] == 'deleteUser') {
 
     $id_locatar = $_POST['id'];
+    $facturiLuna = ORM::forTable('facturi')->where('id_locatar', $id_locatar)->find_many();
+    foreach ($facturiLuna as $factura) {
+        $factura->delete();
+    }
     $locatar = ORM::forTable('locatari')->find_one($id_locatar);
     $id_user = $locatar->$id_user;
     $locatar -> delete();
