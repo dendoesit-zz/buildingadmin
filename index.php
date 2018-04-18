@@ -259,10 +259,11 @@ if (isset($_POST['logout'])) {
                     </div>
                 </article>
                 <aside>
-                    
+                    <form id="uploadimage" action="" method="post" enctype="multipart/form-data">
                         Select image to upload:
                         <input type="file" name="fileToUpload" id="fileToUpload">
                         <input type="submit" value="Upload Image" name="submit" id="upload">
+                    </form>
                     
                     <h3>Videouri informative</h3>
                     <iframe width="300" height="300" src="https://www.youtube.com/embed/2UHzZGm3rRQ" frameborder="0"

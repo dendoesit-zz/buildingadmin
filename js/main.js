@@ -1,6 +1,6 @@
 //If user submits the form
 $(document).ready(function () {
-    $('body').on('click', '#addFact', function(){
+    $('body').on('click', '#addFact', function () {
         var newloc = $("#addloc").val();
         var newluna = $("#addluna").val();
         var newan = $("#addAn").val();
@@ -9,21 +9,22 @@ $(document).ready(function () {
         $("#addFactModal").hide();
     })
 
-    $('body').on('click', '#addfactbtn', function() {
+    $('body').on('click', '#addfactbtn', function () {
         console.log("add fact btn pressed");
         $("#addFactModal").show();
     })
-    $("#seeFact").click(function() {
+    $("#seeFact").click(function () {
 
         var an = $('#an').val()
         var luna = $('#luna').val()
-        console.log(an,luna)
-        getFactLuna(luna,an);
+        console.log(an, luna)
+        getFactLuna(luna, an);
         $("#FacturiPeLuna").show();
     });
     getData()
     getFacturi()
-    function getData(){
+
+    function getData() {
         // ---------------------------------------------> GET ALL USERS
         request = $.ajax({
             url: "locatari.php",
@@ -35,7 +36,7 @@ $(document).ready(function () {
         // Callback handler that will be called on success
         request.done(function (response) {
             // Log a message to the console
-            console.log(response + " was the resp");
+            //console.log(response + " was the resp");
             data = $.parseJSON(response);
             data = data.data
 //        data = $.parseJSON(data);
@@ -46,7 +47,7 @@ $(document).ready(function () {
                 rows = rows + '<tr>';
                 rows = rows + '<td>' + value.ap + '</td>';
                 rows = rows + '<td>' + value.nume + '</td>';
-                rows = rows + '<td>'  + 100 +  '</td>';
+                rows = rows + '<td>' + 100 + '</td>';
                 rows = rows + '<td>' + value.nr_pers + '</td>';
                 rows = rows + '<td data-id="' + value.id + '">';
                 rows = rows + '<button type="button" data-toggle="modal" data-target="editUser" class="editUser">Editare </button>';
@@ -183,7 +184,7 @@ $(document).ready(function () {
         // Callback handler that will be called on success
         request.done(function (response) {
             // Log a message to the console
-            console.log(response + " was the facturi resp");
+            //console.log(response + " was the facturi resp");
             data = $.parseJSON(response);
             data = data.data
 //        data = $.parseJSON(data);
@@ -206,14 +207,14 @@ $(document).ready(function () {
             $("#facturi").append(rows);
             rows = "";
 
-            $('body').on('click', '.deleteFact', function(){
+            $('body').on('click', '.deleteFact', function () {
                 var id_locatar = $(this).parent("td").data('id');
                 var luna = $(this).parent("td").prev("td").prev("td").prev("td").text();
                 var an = $(this).parent("td").prev("td").prev("td").text();
                 deleteFactura(id_locatar, luna, an);
             })
 
-            $('body').on('click', '.editFact', function(){
+            $('body').on('click', '.editFact', function () {
                 $("#editFactModal").show();
                 var loc = $(this).parent("td").data('id');
                 var luna = $(this).parent("td").prev("td").prev("td").prev("td").text();
@@ -235,14 +236,14 @@ $(document).ready(function () {
         });
     };
 
-    function getFactLuna(luna,an){
+    function getFactLuna(luna, an) {
         request = $.ajax({
             url: "facturi.php",
             type: "post",
             data: {
                 action: 'getFacturiLuna',
-                luna:luna,
-                an:an
+                luna: luna,
+                an: an
             }
         });
         // Callback handler that will be called on success
@@ -265,7 +266,7 @@ $(document).ready(function () {
             $("#factluna").append(rows);
             rows = "";
 
-            $('body').on('click', '.editfactbtn', function(){
+            $('body').on('click', '.editfactbtn', function () {
                 $("#editFactModal").show();
                 var loc = $(this).parent("td").data('id');
                 var luna = $('#luna').find(":selected").text();
@@ -287,7 +288,7 @@ $(document).ready(function () {
         });
     };
 
-    function addFactura(loc, luna, an, suma){
+    function addFactura(loc, luna, an, suma) {
         request = $.ajax({
             url: "facturi.php",
             type: "post",
@@ -314,7 +315,8 @@ $(document).ready(function () {
             );
         });
     };
-    function editFactura(newloc, newluna, newan, newsuma){
+
+    function editFactura(newloc, newluna, newan, newsuma) {
         request = $.ajax({
             url: "facturi.php",
             type: "post",
@@ -343,15 +345,16 @@ $(document).ready(function () {
             );
         });
     }
+
     function deleteFactura(id_locatar, luna, an) {
         request = $.ajax({
             url: "facturi.php",
             type: "post",
             data: {
                 action: 'deleteFact',
-                id_locatar:id_locatar,
-                luna:luna,
-                an:an
+                id_locatar: id_locatar,
+                luna: luna,
+                an: an
             }
         });
         // Callback handler that will be called on success
@@ -362,7 +365,6 @@ $(document).ready(function () {
             getFacturi();
         });
     };
-
 
 
     // ---------------------------------------------> CHAT
@@ -398,22 +400,20 @@ $(document).ready(function () {
     }
 
     // ----------------------------------> Upload Image
-    
-    $('#upload').on('click', function() {
-    var file_data = $('#fileToUpload').prop('files')[0];   
-    var form_data = new FormData();                  
-    form_data.append('file', file_data);
-    alert(form_data);                             
-    $.ajax({
-        url: 'uploadfile.php', // point to server-side PHP script 
-        cache: false,
-        contentType: false,
-        processData: false,
-        data: form_data,                         
-        type: 'post',
-        success: function(php_script_response){
-            alert(php_script_response); // display response from the PHP script, if any
-        }
-     });
-});
+
+    $("#uploadimage").on('submit', function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: 'uploadfile.php', // point to server-side PHP script
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: new FormData(this),
+            type: 'post',
+            success: function (php_script_response) {
+                console.log(php_script_response);
+                alert(php_script_response); // display response from the PHP script, if any
+            }
+        });
+    });
 });
