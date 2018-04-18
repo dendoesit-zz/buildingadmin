@@ -79,6 +79,20 @@ body {
     color: white;
 }
 
+#seeFact{
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 13px;
+    margin: 8px 0;
+    border: none;
+    width: 40%;
+    font-size:16px;
+}
+#FacturiPeLuna{
+    display:none;
+}
+
+
 /* ==============
     MOBILE: Menu
    ============== */
@@ -230,7 +244,7 @@ nav a:hover {
 
     .main article {
         float: left;
-        width: 57%;
+        width: 50%;
     }
 
     .main aside {
@@ -502,6 +516,8 @@ button:hover {
 
 #crud{
     display:none;
+    width:50%;
+    float:left;
 }
 #facturiSection{
     display:none;
@@ -541,6 +557,12 @@ button {
 }
 .editUser{
      background-color: #008CBA;
+}
+.editFact{
+    background-color: #008CBA;
+}
+.deleteFact{
+    background-color: #f44336;
 }
 .deleteUser{
     background-color: #f44336;
