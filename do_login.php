@@ -13,8 +13,8 @@ if (isset($_POST['do_login'])) {
     $result = ORM::forTable('users')->where(array('email' => $email, 'pw' => $pass))->find_one();
 
     if ($result) {
-        $_SESSION['email'] = $row['email'];
-        $_SESSION['role'] = $row['role'];
+        $_SESSION['email'] = $result->email;
+        $_SESSION['role'] = $result->role;
         echo "gg";
     } else {
         echo "fail";
