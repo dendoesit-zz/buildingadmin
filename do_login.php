@@ -15,6 +15,10 @@ if (isset($_POST['do_login'])) {
     if ($result) {
         $_SESSION['email'] = $result->email;
         $_SESSION['role'] = $result->role;
+        $visit = ORM::for_table('visits')->create();
+        $visit->id_user = $result->id;
+        $visit->visit_date = date("d-m-Y", time());
+        $visit->save();
         echo "gg";
     } else {
         echo "fail";

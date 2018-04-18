@@ -32,7 +32,7 @@ if ($_POST['action'] == 'addFactura') {
 } else if ($_POST['action'] == 'getFacturiLuna') {
     $luna = $_POST['luna'];
     $an = $_POST['an'];
-    $facturiLuna = ORM::forTable('facturi')->where(array('luna' => $luna, 'an' => $an))->find_array();
+    $facturiLuna = ORM::forTable('facturi')->where(array('luna' => $luna, 'an' => $an))->order_by_asc('id_locatar')->find_array();
     $data['data'] = $facturiLuna;
     $data['total'] = count($facturiLuna);
     echo json_encode($data);
@@ -50,7 +50,7 @@ if ($_POST['action'] == 'addFactura') {
     exit();
 
 } else if ($_POST['action'] == 'getFacturi') {
-    $facturiTotal = ORM::for_table('facturi')->find_array();
+    $facturiTotal = ORM::for_table('facturi')->order_by_asc('id_locatar')->find_array();
     $data['data'] = $facturiTotal;
     $data['total'] = count($facturiTotal);
     echo json_encode($data);

@@ -73,7 +73,7 @@ if ($_POST['action'] == 'addUser') {
 
 } else if ($_POST['action'] == 'getAll') {
 
-    $allLocatari = ORM::for_table('locatari')->find_array();
+    $allLocatari = ORM::for_table('locatari')->order_by_asc('ap')->find_array();
     $data['data'] = $allLocatari;
     $data['total'] = count($allLocatari);
     echo json_encode($data);
