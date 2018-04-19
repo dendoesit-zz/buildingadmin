@@ -76,8 +76,13 @@ if (isset($_POST['logout'])) {
                 $("#logged-in").hide();
             })
             var player = "<?php echo $_SESSION['role']; ?>";
+            console.log(player);
             if (player == "admin") {
                 $(".admin-view").show()
+                $(".user-view").hide()
+            } else{
+                $(".admin-view").hide()
+                $(".user-view").show()
             }
             $("#crudpage").click(function () {
                 $("#crud").show();
@@ -255,15 +260,57 @@ if (isset($_POST['logout'])) {
                                 <tbody id="factluna"></tbody>
                             </table>
                         </div>
-                        <h2>Graficul activitatii</h2>
+                        <div class="admin-view">
+                            <h2>Graficul activitatii</h2>
+                            <div id="graph">
+                            <table id="q-graph">
+                                <caption>Vizitatori pe zi</caption>
+                                <thead>
+
+                                </thead>
+                                <tbody>
+                                <tr class="qtr" id="q1">
+                                <th scope="row">15.04</th>
+                                <td class="sent bar" style="height: 38%;"><p>38</p></td>
+                                </tr>
+                                <tr class="qtr" id="q2">
+                                <th scope="row">16.04</th>
+                                <td class="sent bar" style="height: 65%;"><p>65</p></td>
+                                </tr>
+                                <tr class="qtr" id="q3">
+                                <th scope="row">17.04</th>
+                                <td class="sent bar" style="height: 82%;"><p>82</p></td>
+                                </tr>
+                                <tr class="qtr" id="q4">
+                                <th scope="row">18.04</th>
+                                <td class="sent bar" style="height: 86%;"><p>86</p></td>
+                                </tr>
+                                <tr class="qtr" id="q5">
+                                <th scope="row">19.04</th>
+                                <td class="sent bar" style="height: 15%;"><p>15</p></td>
+                                </tr>
+                                </tbody>
+                                </table>
+
+                                <div id="ticks">
+                                <div class="tick" style="height: 59px;"><p>100</p></div>
+                                <div class="tick" style="height: 59px;"><p>80</p></div>
+                                <div class="tick" style="height: 59px;"><p>60</p></div>
+                                <div class="tick" style="height: 59px;"><p>40</p></div>
+                                <div class="tick" style="height: 59px;"><p>20</p></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </article>
                 <aside>
-                    <form id="uploadimage" action="" method="post" enctype="multipart/form-data">
-                        Select image to upload:
-                        <input type="file" name="fileToUpload" id="fileToUpload">
-                        <input type="submit" value="Upload Image" name="submit" id="upload">
-                    </form>
+                    <div class="admin-view">
+                        <form id="uploadimage" action="" method="post" enctype="multipart/form-data">
+                            Select image to upload:
+                            <input type="file" name="fileToUpload" id="fileToUpload">
+                            <input type="submit" value="Upload Image" name="submit" id="upload">
+                        </form>
+                    </div>
                     
                     <h3>Videouri informative</h3>
                     <iframe width="300" height="300" src="https://www.youtube.com/embed/2UHzZGm3rRQ" frameborder="0"
@@ -283,7 +330,6 @@ if (isset($_POST['logout'])) {
                     }
                     ?>
                 </div>
-
                 <div id="close-chat">X</div>
                 <form name="message" action="" id="sendMessage">
                     <input name="usermsg" type="text" id="usermsg" size="63"/>
