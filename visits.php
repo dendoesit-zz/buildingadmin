@@ -6,7 +6,7 @@ ORM::configure('username', 'root');
 ORM::configure('password', '');
 
 session_start();
-$visiteZi = ORM::forTable('visits')->raw_query('SELECT visit_date, count(*) as no FROM visits group by visit_date')->find_array();
+$visiteZi = ORM::forTable('visits')->raw_query('SELECT visit_date, count(*) as no FROM visits group by visit_date order by visit_date desc')->find_array();
 echo json_encode($visiteZi);
 ?>
 

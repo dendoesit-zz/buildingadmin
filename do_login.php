@@ -19,6 +19,10 @@ if (isset($_POST['do_login'])) {
         $visit->id_user = $result->id;
         $visit->visit_date = date("d-m-Y", time());
         $visit->save();
+
+        $locatar = ORM::forTable('locatari')->where('user_id', $result->id)->find_one();
+
+        $_SESSION['locatar_id'] = $locatar->id;
         echo "gg";
     } else {
         echo "fail";

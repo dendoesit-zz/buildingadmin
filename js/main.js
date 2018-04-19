@@ -1,5 +1,40 @@
 //If user submits the form
 $(document).ready(function () {
+    var request = $.ajax({
+        url: "visits.php",
+        type: "get"
+    });
+    // Callback handler that will be called on success
+    request.done(function (response) {
+        // Log a message to the console
+        //console.log(response + " was the resp");
+        var data = $.parseJSON(response);
+        var ticks = '';
+        var graphs = '';
+        var maxVisits = 0;
+        for (var i = 0; i < Math.min(data.length, 5); i++) {
+            maxVisits = Math.max(maxVisits, data[i].no);
+        }
+        for (var i = 0; i < Math.min(data.length, 5); i++) {
+            var procent = parseInt(data[i].no / maxVisits * 100);
+            graphs += "<tr class=\"qtr\" id=\"q" + (i + 1) + "\">\n" +
+                "                                <th scope=\"row\">" + data[i].visit_date.substr(0, data[i].visit_date.length - 5) + "</th>\n" +
+                "                                <td class=\"sent bar\" style=\"height: " + procent + "%;\"><p>" + data[i].no + "</p></td>\n" +
+                "                                </tr>"
+        }
+        ticks += '<div class="tick" style="height: 147px;"><p>' + maxVisits + '</p></div>';
+        ticks += '<div class="tick" style="height: 147px;"><p>' + parseInt(maxVisits / 2) + '</p></div>';
+        $("#ticks").append(ticks);
+        $("#graph-values").append(graphs);
+    });
+    $('#login_button').on('click', function () {
+        getFactUser();
+    });
+
+    $('#download_image').on('click', function () {
+        downloadImage();
+    });
+
     $('body').on('click', '#addFact', function () {
         var newloc = $("#addloc").val();
         var newluna = $("#addluna").val();
@@ -21,8 +56,8 @@ $(document).ready(function () {
         getFactLuna(luna, an);
         $("#FacturiPeLuna").show();
     });
-    getData()
-    getFacturi()
+    getData();
+    getFacturi();
 
     function getData() {
         // ---------------------------------------------> GET ALL USERS
@@ -288,6 +323,29 @@ $(document).ready(function () {
         });
     };
 
+    function getFactUser() {
+        request = $.ajax({
+            url: "facturi.php",
+            type: "post",
+            data: {
+                action: 'factUser'
+            }
+        });
+        // Callback handler that will be called on success
+        request.done(function (response) {
+            // Log a message to the console
+            console.log(response + " was the facturi resp");
+            data = $.parseJSON(response);
+            var rows = '';
+            data.forEach(function (value) {
+                rows += '<li>' + value.luna + '-' + value.an + ' : ' + value.suma + '</li>';
+            });
+            $("#facturi_user").empty();
+            $("#facturi_user").append(rows);
+            rows = "";
+        });
+    };
+
     function addFactura(loc, luna, an, suma) {
         request = $.ajax({
             url: "facturi.php",
@@ -416,4 +474,24 @@ $(document).ready(function () {
             }
         });
     });
+
+    function downloadImage() {
+        request = $.ajax({
+            url: "downloadfile.php",
+            type: "get"
+        });
+        // Callback handler that will be called on success
+        request.done(function (response) {
+            // Log a message to the console
+            console.log(response + " was the resp");
+            var win = window.open(response, '_blank');
+            if (win) {
+                //Browser has allowed it to be opened
+                win.focus();
+            } else {
+                //Browser has blocked it
+                alert('Please allow popups for this website');
+            }
+        });
+    };
 });

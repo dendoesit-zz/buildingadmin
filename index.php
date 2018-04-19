@@ -236,10 +236,10 @@ if (isset($_POST['logout'])) {
                 <article>
                     <div class="user-view">
                         <p> Facturi </p>
-                        <ol>
-                            <li>Apa 5.03.2018</li>
+                        <ol id="facturi_user">
+                            <!--<li>Apa 5.03.2018</li>
                             <li>Electrictitate 5.04.2018</li>
-                            <li>Intretinerea 5.06.2018</li>
+                            <li>Intretinerea 5.06.2018</li>-->
                         </ol>
                     </div>
                     <div class="admin-view">
@@ -268,8 +268,8 @@ if (isset($_POST['logout'])) {
                                 <thead>
 
                                 </thead>
-                                <tbody>
-                                <tr class="qtr" id="q1">
+                                <tbody id="graph-values">
+                                <!--<tr class="qtr" id="q1">
                                 <th scope="row">15.04</th>
                                 <td class="sent bar" style="height: 38%;"><p>38</p></td>
                                 </tr>
@@ -288,16 +288,16 @@ if (isset($_POST['logout'])) {
                                 <tr class="qtr" id="q5">
                                 <th scope="row">19.04</th>
                                 <td class="sent bar" style="height: 15%;"><p>15</p></td>
-                                </tr>
+                                </tr>-->
                                 </tbody>
                                 </table>
 
                                 <div id="ticks">
-                                <div class="tick" style="height: 59px;"><p>100</p></div>
+                                <!--<div class="tick" style="height: 59px;"><p>100</p></div>
                                 <div class="tick" style="height: 59px;"><p>80</p></div>
                                 <div class="tick" style="height: 59px;"><p>60</p></div>
                                 <div class="tick" style="height: 59px;"><p>40</p></div>
-                                <div class="tick" style="height: 59px;"><p>20</p></div>
+                                <div class="tick" style="height: 59px;"><p>20</p></div>-->
                                 </div>
                             </div>
                         </div>
@@ -310,6 +310,11 @@ if (isset($_POST['logout'])) {
                             <input type="file" name="fileToUpload" id="fileToUpload">
                             <input type="submit" value="Upload Image" name="submit" id="upload">
                         </form>
+                    </div>
+
+                    <div class="user-view">
+                        <img src="uploads/table.jpg"/>
+                        <button type="button" id="download_image" value="Descarca tabel"/>
                     </div>
                     
                     <h3>Videouri informative</h3>

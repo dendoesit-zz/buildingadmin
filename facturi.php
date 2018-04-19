@@ -60,7 +60,14 @@ if ($_POST['action'] == 'addFactura') {
     $id_locatar = $_POST['id_locatar'];
     $an = $_POST['an'];
     $luna = $_POST['luna'];
-    $locatar = ORM::forTable('facturi')->where(array('id_locatar' => $id_locatar, 'luna' => $luna, 'an' => $an))->find_one()->delete();
+    ORM::forTable('facturi')->where(array('id_locatar' => $id_locatar, 'luna' => $luna, 'an' => $an))->find_one()->delete();
     exit();
+} else if ($_POST['action'] == 'factUser') {
+    if (isset($_SESSION['locatar_id'])) {
+        $id_locatar = $_SESSION['locatar_id'];
+        $facturiLuna = ORM::forTable('facturi')->where('id_locatar', $id_locatar)->find_array();
+        echo json_encode($facturiLuna);
+        exit();
+    }
 }
 ?>
