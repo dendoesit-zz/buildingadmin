@@ -23,7 +23,7 @@ if (isset($_POST['do_login'])) {
         $locatar = ORM::forTable('locatari')->where('user_id', $result->id)->find_one();
 
         $_SESSION['locatar_id'] = $locatar->id;
-        echo "gg";
+        echo $result->role;
     } else {
         echo "fail";
     }

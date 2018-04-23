@@ -37,11 +37,17 @@ if (isset($_POST['logout'])) {
                 request.done(function (response, textStatus, jqXHR) {
                     // Log a message to the console
                     console.log("Hooray, it worked!" + response + " was the resp");
-                    if (response.includes("gg")) {
+                    if (response.includes("admin")) {
+                        $(".admin-view").show()
+                        $(".user-view").hide()
                         $("#login_form").hide();
                         $("#logged-in").show();
-                    }
-                    else {
+                    } else if (response.includes("user")) {
+                        $(".admin-view").hide()
+                        $(".user-view").show()
+                        $("#login_form").hide();
+                        $("#logged-in").show();
+                    } else {
                         alert("Wrong Details");
                     }
                 });
@@ -72,18 +78,8 @@ if (isset($_POST['logout'])) {
                 $("#chat-start").show();
             });
             $("#logout").click(function () {
-                $("#login_form").show();
-                $("#logged-in").hide();
-            })
-            var player = "<?php echo $_SESSION['role']; ?>";
-            console.log(player);
-            if (player == "admin") {
-                $(".admin-view").show()
-                $(".user-view").hide()
-            } else{
-                $(".admin-view").hide()
-                $(".user-view").show()
-            }
+                window.location.href = "/buildingadmin/index.php";
+            });
             $("#crudpage").click(function () {
                 $("#crud").show();
                 $("#facturiSection").show();
