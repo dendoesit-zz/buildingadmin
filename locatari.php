@@ -73,7 +73,7 @@ if ($_POST['action'] == 'addUser') {
 
 } else if ($_POST['action'] == 'getAll') {
 
-    $allLocatari = ORM::for_table('locatari')->order_by_asc('ap')->find_array();
+    $allLocatari = ORM::for_table('locatari')->raw_query("select l.ap, l.id, l.nr_pers, l.nume, l.user_id, sum(IFNULL(f.suma, 0)) as suma from locatari l left join facturi f on f.id_locatar = l.id group by f.id_locatar order by ap")->find_array();
     $data['data'] = $allLocatari;
     $data['total'] = count($allLocatari);
     echo json_encode($data);

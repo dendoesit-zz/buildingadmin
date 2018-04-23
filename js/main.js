@@ -27,7 +27,7 @@ $(document).ready(function () {
         $("#ticks").append(ticks);
         $("#graph-values").append(graphs);
     });
-    $('#login_button').on('click', function () {
+    $('#vezi_fact_user').on('click', function () {
         getFactUser();
     });
 
@@ -82,7 +82,7 @@ $(document).ready(function () {
                 rows = rows + '<tr>';
                 rows = rows + '<td>' + value.ap + '</td>';
                 rows = rows + '<td>' + value.nume + '</td>';
-                rows = rows + '<td>' + 100 + '</td>';
+                rows = rows + '<td>' + value.suma + '</td>';
                 rows = rows + '<td>' + value.nr_pers + '</td>';
                 rows = rows + '<td data-id="' + value.id + '">';
                 rows = rows + '<button type="button" data-toggle="modal" data-target="editUser" class="editUser">Editare </button>';
@@ -265,7 +265,7 @@ $(document).ready(function () {
                     var newluna = $("#editluna").val();
                     var newan = $("#editAn").val();
                     var newsuma = $("#editSuma").val();
-                    loc(newloc, newluna, newan, newsuma);
+                    editFactura(newloc, newluna, newan, newsuma);
                 })
             })
         });
@@ -476,7 +476,7 @@ $(document).ready(function () {
     });
 
     function downloadImage() {
-        request = $.ajax({
+        /*request = $.ajax({
             url: "downloadfile.php",
             type: "get"
         });
@@ -492,6 +492,7 @@ $(document).ready(function () {
                 //Browser has blocked it
                 alert('Please allow popups for this website');
             }
-        });
+        });*/
+        window.location.href = "/buildingadmin/downloadfile.php"
     };
 });

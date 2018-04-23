@@ -231,6 +231,7 @@ if (isset($_POST['logout'])) {
             <section id="home">
                 <article>
                     <div class="user-view">
+                        <button type="button" id="vezi_fact_user">Vezi facturile tale</button>
                         <p> Facturi </p>
                         <ol id="facturi_user">
                             <!--<li>Apa 5.03.2018</li>
@@ -309,8 +310,8 @@ if (isset($_POST['logout'])) {
                     </div>
 
                     <div class="user-view">
-                        <img src="uploads/table.jpg"/>
-                        <button type="button" id="download_image" value="Descarca tabel"/>
+                        <img class="tabel_plata" src="uploads/table.jpg"/>
+                        <button type="button" id="download_image">Descarca tabel</button>
                     </div>
                     
                     <h3>Videouri informative</h3>
